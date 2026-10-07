@@ -1,0 +1,2422 @@
+[
+ {
+  "id": "press-triggers-6v4",
+  "name": "Pressing triggers 6v4+GK",
+  "tags": [
+   "pressing",
+   "counter-press"
+  ],
+  "minutes": 20,
+  "players": "10-14",
+  "area": "40 x 30 m",
+  "objective": "Recognise pressing triggers (back-pass, poor touch, ball to full-back) and press as a unit.",
+  "setup": "Reds (4 + GK) build out to two end gates; Blues (6) press. Blues score by winning the ball and finishing within 8 seconds.",
+  "coaching_points": [
+   "Nearest player presses on the trigger, curved run to cut the passing lane",
+   "Second player screens the obvious pass",
+   "Rest of the unit shifts across together, no gaps between lines"
+  ],
+  "progression": "Reds score a point for 5 consecutive passes; reduce Blues to 5.",
+  "diagram": {
+   "players": [
+    [
+     12,
+     30,
+     "gk"
+    ],
+    [
+     22,
+     12,
+     "b"
+    ],
+    [
+     22,
+     48,
+     "b"
+    ],
+    [
+     30,
+     22,
+     "b"
+    ],
+    [
+     30,
+     38,
+     "b"
+    ],
+    [
+     34,
+     12,
+     "a"
+    ],
+    [
+     34,
+     48,
+     "a"
+    ],
+    [
+     40,
+     30,
+     "a"
+    ],
+    [
+     46,
+     20,
+     "a"
+    ],
+    [
+     46,
+     40,
+     "a"
+    ],
+    [
+     54,
+     30,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     34,
+     12,
+     25,
+     13,
+     "run"
+    ],
+    [
+     40,
+     30,
+     31,
+     24,
+     "run"
+    ],
+    [
+     22,
+     12,
+     30,
+     22,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     60,
+     24,
+     4,
+     12,
+     "gate"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "five-second-rule",
+  "name": "5-second counter-press rondo",
+  "tags": [
+   "counter-press",
+   "transition",
+   "pressing"
+  ],
+  "minutes": 15,
+  "players": "12",
+  "area": "30 x 30 m",
+  "objective": "React immediately on losing the ball: win it back inside 5 seconds or recover shape.",
+  "setup": "6v6 possession game. Team that loses the ball gets a bonus point if they regain it within 5 seconds.",
+  "coaching_points": [
+   "First reaction is forward, not back",
+   "Swarm the ball side, cut the outlet pass",
+   "If not won in 5 s, drop into shape"
+  ],
+  "progression": "Add two target players on the end lines for the team in possession.",
+  "diagram": {
+   "players": [
+    [
+     20,
+     20,
+     "a"
+    ],
+    [
+     30,
+     35,
+     "a"
+    ],
+    [
+     40,
+     22,
+     "a"
+    ],
+    [
+     25,
+     45,
+     "a"
+    ],
+    [
+     45,
+     40,
+     "a"
+    ],
+    [
+     35,
+     12,
+     "a"
+    ],
+    [
+     28,
+     26,
+     "b"
+    ],
+    [
+     36,
+     30,
+     "b"
+    ],
+    [
+     42,
+     30,
+     "b"
+    ],
+    [
+     22,
+     34,
+     "b"
+    ],
+    [
+     33,
+     42,
+     "b"
+    ],
+    [
+     46,
+     18,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     28,
+     26,
+     22,
+     22,
+     "run"
+    ],
+    [
+     36,
+     30,
+     31,
+     34,
+     "run"
+    ],
+    [
+     42,
+     30,
+     41,
+     24,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     15,
+     8,
+     40,
+     44,
+     ""
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "compact-block-shadow",
+  "name": "Compact mid-block shadow play",
+  "tags": [
+   "compact-block",
+   "defensive-shape",
+   "banks-of-four",
+   "single-pivot"
+  ],
+  "minutes": 15,
+  "players": "11 + coach",
+  "area": "Half pitch",
+  "objective": "Move as two compact lines; keep 10-15 m between units and protect the centre.",
+  "setup": "Coach moves the ball around a ring of mannequins/players; team shifts as a block on each pass.",
+  "coaching_points": [
+   "Distance between lines no more than 15 m",
+   "Ball-side full-back steps, far side tucks in",
+   "Strikers screen the pivot, show play wide"
+  ],
+  "progression": "Add 4 live attackers who try to play through the lines.",
+  "diagram": {
+   "players": [
+    [
+     20,
+     12,
+     "b"
+    ],
+    [
+     20,
+     24,
+     "b"
+    ],
+    [
+     20,
+     36,
+     "b"
+    ],
+    [
+     20,
+     48,
+     "b"
+    ],
+    [
+     32,
+     12,
+     "b"
+    ],
+    [
+     32,
+     24,
+     "b"
+    ],
+    [
+     32,
+     36,
+     "b"
+    ],
+    [
+     32,
+     48,
+     "b"
+    ],
+    [
+     44,
+     24,
+     "b"
+    ],
+    [
+     44,
+     36,
+     "b"
+    ],
+    [
+     60,
+     18,
+     "a"
+    ],
+    [
+     60,
+     42,
+     "a"
+    ],
+    [
+     70,
+     30,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     60,
+     18,
+     60,
+     42,
+     "pass"
+    ],
+    [
+     32,
+     12,
+     32,
+     18,
+     "run"
+    ],
+    [
+     20,
+     12,
+     20,
+     18,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     16,
+     8,
+     30,
+     44,
+     "block"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "defend-the-box",
+  "name": "Defend the box 6v6",
+  "tags": [
+   "defensive-shape",
+   "compact-block",
+   "game-management"
+  ],
+  "minutes": 20,
+  "players": "12 + GK",
+  "area": "Penalty area + 15 m",
+  "objective": "Protect the box: body shape, blocking shots, defending crosses.",
+  "setup": "Attackers recycle from wide feeders; defenders score by clearing to a target beyond the halfway mannequin.",
+  "coaching_points": [
+   "Stay goal-side, see ball and man",
+   "Block line of shot with the body, not the hands",
+   "Attack the ball on crosses \u2014 first contact"
+  ],
+  "progression": "Add a 60-second 'protect the lead' period where defenders must hold a 1-0.",
+  "diagram": {
+   "players": [
+    [
+     6,
+     30,
+     "gk"
+    ],
+    [
+     14,
+     22,
+     "b"
+    ],
+    [
+     14,
+     38,
+     "b"
+    ],
+    [
+     20,
+     30,
+     "b"
+    ],
+    [
+     22,
+     18,
+     "b"
+    ],
+    [
+     22,
+     42,
+     "b"
+    ],
+    [
+     26,
+     30,
+     "b"
+    ],
+    [
+     18,
+     26,
+     "a"
+    ],
+    [
+     18,
+     34,
+     "a"
+    ],
+    [
+     28,
+     20,
+     "a"
+    ],
+    [
+     28,
+     40,
+     "a"
+    ],
+    [
+     34,
+     6,
+     "n"
+    ],
+    [
+     34,
+     54,
+     "n"
+    ]
+   ],
+   "arrows": [
+    [
+     34,
+     6,
+     18,
+     26,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     2,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "vertical-through-lines",
+  "name": "Play through the lines 4v4+3",
+  "tags": [
+   "vertical-passing",
+   "transition",
+   "final-third"
+  ],
+  "minutes": 20,
+  "players": "11",
+  "area": "45 x 30 m in thirds",
+  "objective": "Break lines with forward passes and third-man runs; play forward early.",
+  "setup": "Three zones. Team in possession must play from end zone through middle (neutral) to the far end player within 4 passes.",
+  "coaching_points": [
+   "Look forward first: can I break a line?",
+   "Receive on the half-turn",
+   "Third-man run beyond the receiver"
+  ],
+  "progression": "Limit to 2 touches; add a defender in the middle zone.",
+  "diagram": {
+   "players": [
+    [
+     10,
+     30,
+     "a"
+    ],
+    [
+     25,
+     20,
+     "a"
+    ],
+    [
+     25,
+     40,
+     "a"
+    ],
+    [
+     45,
+     30,
+     "n"
+    ],
+    [
+     38,
+     22,
+     "n"
+    ],
+    [
+     52,
+     38,
+     "n"
+    ],
+    [
+     65,
+     24,
+     "a"
+    ],
+    [
+     80,
+     30,
+     "a"
+    ],
+    [
+     30,
+     30,
+     "b"
+    ],
+    [
+     48,
+     24,
+     "b"
+    ],
+    [
+     60,
+     34,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     10,
+     30,
+     38,
+     22,
+     "pass"
+    ],
+    [
+     38,
+     22,
+     65,
+     24,
+     "pass"
+    ],
+    [
+     52,
+     38,
+     72,
+     36,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     5,
+     8,
+     25,
+     44,
+     ""
+    ],
+    [
+     30,
+     8,
+     30,
+     44,
+     ""
+    ],
+    [
+     60,
+     8,
+     25,
+     44,
+     ""
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "transition-3v2",
+  "name": "Counter-attack waves 3v2",
+  "tags": [
+   "transition",
+   "vertical-passing",
+   "final-third"
+  ],
+  "minutes": 15,
+  "players": "9 + GK",
+  "area": "Half pitch",
+  "objective": "Attack quickly after a turnover: run in behind, commit defenders, finish within 10 s.",
+  "setup": "Coach serves to 3 attackers on halfway; 2 defenders recover. Continuous waves.",
+  "coaching_points": [
+   "Ball carrier attacks space at speed",
+   "Wide runners stretch the defenders",
+   "Final pass before the defender recovers"
+  ],
+  "progression": "Add a recovering third defender after 3 s.",
+  "diagram": {
+   "players": [
+    [
+     90,
+     30,
+     "gk"
+    ],
+    [
+     50,
+     20,
+     "a"
+    ],
+    [
+     50,
+     30,
+     "a"
+    ],
+    [
+     50,
+     40,
+     "a"
+    ],
+    [
+     70,
+     24,
+     "b"
+    ],
+    [
+     70,
+     36,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     50,
+     30,
+     66,
+     30,
+     "dribble"
+    ],
+    [
+     50,
+     20,
+     78,
+     16,
+     "run"
+    ],
+    [
+     50,
+     40,
+     78,
+     44,
+     "run"
+    ],
+    [
+     66,
+     30,
+     78,
+     16,
+     "pass"
+    ]
+   ],
+   "zones": [],
+   "cones": []
+  }
+ },
+ {
+  "id": "build-up-under-pressure",
+  "name": "Build-up under pressure 5v3+GK",
+  "tags": [
+   "build-up",
+   "possession",
+   "double-pivot"
+  ],
+  "minutes": 20,
+  "players": "8 + GK",
+  "area": "Defensive third",
+  "objective": "Play out from the back calmly against a press using width and the pivot.",
+  "setup": "GK + 4 defenders + pivot vs 3 pressers. Score by passing through a gate on halfway.",
+  "coaching_points": [
+   "Centre-backs split wide, GK is the spare man",
+   "Pivot shows between the pressers",
+   "If pressed, go long early to the channel \u2014 not across the box"
+  ],
+  "progression": "Add a 4th presser; allow the long ball only into a target zone.",
+  "diagram": {
+   "players": [
+    [
+     5,
+     30,
+     "gk"
+    ],
+    [
+     14,
+     16,
+     "a"
+    ],
+    [
+     14,
+     44,
+     "a"
+    ],
+    [
+     24,
+     6,
+     "a"
+    ],
+    [
+     24,
+     54,
+     "a"
+    ],
+    [
+     26,
+     30,
+     "a"
+    ],
+    [
+     20,
+     24,
+     "b"
+    ],
+    [
+     20,
+     36,
+     "b"
+    ],
+    [
+     30,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     5,
+     30,
+     14,
+     16,
+     "pass"
+    ],
+    [
+     14,
+     16,
+     26,
+     30,
+     "pass"
+    ],
+    [
+     26,
+     30,
+     42,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     40,
+     24,
+     4,
+     12,
+     "gate"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "rondo-5v2",
+  "name": "Rondo 5v2 two-touch",
+  "tags": [
+   "possession",
+   "build-up",
+   "central-combinations"
+  ],
+  "minutes": 12,
+  "players": "7",
+  "area": "12 x 12 m",
+  "objective": "Ball security under pressure: body shape, angles, quick decisions.",
+  "setup": "Five on the outside, two in the middle. Defender who wins it swaps with the player who lost it.",
+  "coaching_points": [
+   "Open body to see the next pass",
+   "Pass to the far foot",
+   "Split pass between the two defenders scores a bonus"
+  ],
+  "progression": "One touch; make the square smaller.",
+  "diagram": {
+   "players": [
+    [
+     20,
+     18,
+     "a"
+    ],
+    [
+     32,
+     14,
+     "a"
+    ],
+    [
+     40,
+     26,
+     "a"
+    ],
+    [
+     34,
+     40,
+     "a"
+    ],
+    [
+     20,
+     36,
+     "a"
+    ],
+    [
+     28,
+     24,
+     "b"
+    ],
+    [
+     30,
+     31,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     20,
+     18,
+     34,
+     40,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     16,
+     12,
+     26,
+     30,
+     ""
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "wide-overload-2v1",
+  "name": "Wide overloads 2v1 + cross",
+  "tags": [
+   "wide-play",
+   "wing-backs",
+   "final-third"
+  ],
+  "minutes": 20,
+  "players": "10 + GK",
+  "area": "Final third",
+  "objective": "Create 2v1s out wide with overlaps/underlaps and deliver early crosses.",
+  "setup": "Winger + full-back vs one defender in a channel; 2 strikers vs 2 centre-backs in the box.",
+  "coaching_points": [
+   "Timing of the overlap: go when the winger draws the defender",
+   "Cross early to the near post or cut back",
+   "Strikers: one near, one far, cross over"
+  ],
+  "progression": "Add a recovering defender to make it 2v2.",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     60,
+     52,
+     "a"
+    ],
+    [
+     52,
+     56,
+     "a"
+    ],
+    [
+     64,
+     50,
+     "b"
+    ],
+    [
+     80,
+     26,
+     "a"
+    ],
+    [
+     80,
+     36,
+     "a"
+    ],
+    [
+     86,
+     28,
+     "b"
+    ],
+    [
+     86,
+     36,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     52,
+     56,
+     78,
+     56,
+     "run"
+    ],
+    [
+     60,
+     52,
+     76,
+     56,
+     "pass"
+    ],
+    [
+     78,
+     56,
+     88,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     50,
+     46,
+     40,
+     12,
+     "channel"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "switch-play",
+  "name": "Switch of play 6v6 with wide zones",
+  "tags": [
+   "switching",
+   "wide-play",
+   "possession"
+  ],
+  "minutes": 20,
+  "players": "12 + 2 floaters",
+  "area": "50 x 40 m",
+  "objective": "Draw the opponent to one side, then switch quickly to the free wide player.",
+  "setup": "Two wide channels with a floater each. Goal counts double if the ball went through both channels in the move.",
+  "coaching_points": [
+   "Overload one side to attract pressure",
+   "Switch in two passes max (via pivot)",
+   "Far-side player stays wide \u2014 don't drift in early"
+  ],
+  "progression": "Floaters limited to 2 touches.",
+  "diagram": {
+   "players": [
+    [
+     30,
+     8,
+     "n"
+    ],
+    [
+     30,
+     52,
+     "n"
+    ],
+    [
+     20,
+     24,
+     "a"
+    ],
+    [
+     30,
+     30,
+     "a"
+    ],
+    [
+     40,
+     22,
+     "a"
+    ],
+    [
+     36,
+     38,
+     "a"
+    ],
+    [
+     25,
+     22,
+     "b"
+    ],
+    [
+     34,
+     24,
+     "b"
+    ],
+    [
+     42,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     20,
+     24,
+     30,
+     30,
+     "pass"
+    ],
+    [
+     30,
+     30,
+     30,
+     52,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     5,
+     2,
+     50,
+     8,
+     "wide"
+    ],
+    [
+     5,
+     50,
+     50,
+     8,
+     "wide"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "central-combos",
+  "name": "Central combinations 3v2 to goal",
+  "tags": [
+   "central-combinations",
+   "number-10",
+   "final-third"
+  ],
+  "minutes": 15,
+  "players": "8 + GK",
+  "area": "30 x 25 m",
+  "objective": "Combine in tight central spaces: wall passes, third-man runs, shots from the edge.",
+  "setup": "Three attackers (10 + two strikers) vs two centre-backs, play starts from a midfielder's pass.",
+  "coaching_points": [
+   "Lay-off and spin",
+   "10 arrives late into the box",
+   "Shoot early when the lane opens"
+  ],
+  "progression": "Add a holding midfielder for the defence (3v3).",
+  "diagram": {
+   "players": [
+    [
+     92,
+     30,
+     "gk"
+    ],
+    [
+     60,
+     30,
+     "a"
+    ],
+    [
+     72,
+     24,
+     "a"
+    ],
+    [
+     72,
+     36,
+     "a"
+    ],
+    [
+     78,
+     26,
+     "b"
+    ],
+    [
+     78,
+     34,
+     "b"
+    ],
+    [
+     48,
+     30,
+     "n"
+    ]
+   ],
+   "arrows": [
+    [
+     48,
+     30,
+     72,
+     24,
+     "pass"
+    ],
+    [
+     72,
+     24,
+     60,
+     30,
+     "pass"
+    ],
+    [
+     60,
+     30,
+     80,
+     30,
+     "run"
+    ]
+   ],
+   "zones": [],
+   "cones": []
+  }
+ },
+ {
+  "id": "back-three-shifts",
+  "name": "Back-three shifting & cover",
+  "tags": [
+   "back-three",
+   "defensive-shape",
+   "wing-backs"
+  ],
+  "minutes": 15,
+  "players": "5 + 4 attackers",
+  "area": "Half pitch",
+  "objective": "Three centre-backs and wing-backs shift together; cover behind the stepping defender.",
+  "setup": "Attackers play into a striker or wide; back five must stay connected and win the ball.",
+  "coaching_points": [
+   "Outside CB steps to the wide forward, middle CB covers",
+   "Wing-back drops when ball is far side \u2192 back five",
+   "Communicate the step and the cover"
+  ],
+  "progression": "Add a 5th attacker running beyond.",
+  "diagram": {
+   "players": [
+    [
+     18,
+     18,
+     "b"
+    ],
+    [
+     16,
+     30,
+     "b"
+    ],
+    [
+     18,
+     42,
+     "b"
+    ],
+    [
+     30,
+     6,
+     "b"
+    ],
+    [
+     30,
+     54,
+     "b"
+    ],
+    [
+     38,
+     30,
+     "a"
+    ],
+    [
+     44,
+     14,
+     "a"
+    ],
+    [
+     44,
+     46,
+     "a"
+    ],
+    [
+     34,
+     20,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     18,
+     18,
+     30,
+     18,
+     "run"
+    ],
+    [
+     16,
+     30,
+     18,
+     22,
+     "run"
+    ]
+   ],
+   "zones": [],
+   "cones": []
+  }
+ },
+ {
+  "id": "wing-back-timing",
+  "name": "Wing-back timing & delivery",
+  "tags": [
+   "wing-backs",
+   "wide-play",
+   "back-three"
+  ],
+  "minutes": 15,
+  "players": "8 + GK",
+  "area": "Wide channel to goal",
+  "objective": "Wing-backs time forward runs and recovery runs; deliver from wide.",
+  "setup": "Ball worked from CB to CM to wing-back on the run; cross to two strikers. On a shout, wing-back sprints back to a cone.",
+  "coaching_points": [
+   "Start the run as the CM receives",
+   "Look up before the cross",
+   "Recovery run immediately after delivery"
+  ],
+  "progression": "Add a defending winger who tracks the run.",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     20,
+     44,
+     "a"
+    ],
+    [
+     40,
+     40,
+     "a"
+    ],
+    [
+     45,
+     54,
+     "a"
+    ],
+    [
+     82,
+     26,
+     "a"
+    ],
+    [
+     82,
+     34,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     20,
+     44,
+     40,
+     40,
+     "pass"
+    ],
+    [
+     45,
+     54,
+     72,
+     54,
+     "run"
+    ],
+    [
+     40,
+     40,
+     70,
+     52,
+     "pass"
+    ],
+    [
+     72,
+     54,
+     86,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [],
+   "cones": [
+    [
+     30,
+     56
+    ]
+   ]
+  }
+ },
+ {
+  "id": "front-three-press",
+  "name": "Front-three pressing angles",
+  "tags": [
+   "front-three",
+   "pressing"
+  ],
+  "minutes": 15,
+  "players": "3 + 4 builders + GK",
+  "area": "Defensive third",
+  "objective": "Front three press with curved runs to show play one way and trap it.",
+  "setup": "Back four + GK try to play out; front three try to win it inside the zone.",
+  "coaching_points": [
+   "Striker curves to cut the CB-to-CB pass",
+   "Wingers jump on the full-back on the pass, not before",
+   "Trap on the touchline"
+  ],
+  "progression": "Add a pivot for the builders; front three get a midfielder to help.",
+  "diagram": {
+   "players": [
+    [
+     5,
+     30,
+     "gk"
+    ],
+    [
+     14,
+     20,
+     "a"
+    ],
+    [
+     14,
+     40,
+     "a"
+    ],
+    [
+     22,
+     6,
+     "a"
+    ],
+    [
+     22,
+     54,
+     "a"
+    ],
+    [
+     26,
+     30,
+     "b"
+    ],
+    [
+     30,
+     12,
+     "b"
+    ],
+    [
+     30,
+     48,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     26,
+     30,
+     16,
+     22,
+     "run"
+    ],
+    [
+     30,
+     12,
+     23,
+     8,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     2,
+     2,
+     38,
+     56,
+     ""
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "midfield-triangle",
+  "name": "Midfield triangle rotations",
+  "tags": [
+   "midfield-triangle",
+   "possession",
+   "single-pivot"
+  ],
+  "minutes": 15,
+  "players": "6 + 3 defenders",
+  "area": "30 x 25 m",
+  "objective": "Rotate within the 6-8-8 triangle to create passing angles and free the pivot.",
+  "setup": "CBs to midfield triangle to striker targets; 3 defenders try to block.",
+  "coaching_points": [
+   "Never in a straight line \u2014 keep triangles",
+   "When an 8 drops, the other pushes on",
+   "Pivot scans before receiving"
+  ],
+  "progression": "Two-touch limit; add a 4th defender.",
+  "diagram": {
+   "players": [
+    [
+     15,
+     22,
+     "a"
+    ],
+    [
+     15,
+     38,
+     "a"
+    ],
+    [
+     30,
+     30,
+     "a"
+    ],
+    [
+     42,
+     20,
+     "a"
+    ],
+    [
+     42,
+     40,
+     "a"
+    ],
+    [
+     60,
+     30,
+     "a"
+    ],
+    [
+     34,
+     22,
+     "b"
+    ],
+    [
+     36,
+     38,
+     "b"
+    ],
+    [
+     48,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     15,
+     22,
+     30,
+     30,
+     "pass"
+    ],
+    [
+     30,
+     30,
+     42,
+     40,
+     "pass"
+    ],
+    [
+     42,
+     20,
+     52,
+     18,
+     "run"
+    ]
+   ],
+   "zones": [],
+   "cones": []
+  }
+ },
+ {
+  "id": "double-pivot",
+  "name": "Double pivot: screen and progress",
+  "tags": [
+   "double-pivot",
+   "build-up",
+   "rest-defence"
+  ],
+  "minutes": 15,
+  "players": "8 + 4 attackers",
+  "area": "Middle third",
+  "objective": "Two holding midfielders: one supports the ball, one screens behind it.",
+  "setup": "Possession in middle third; on turnover, opponents counter at two mini-goals the pivots protect.",
+  "coaching_points": [
+   "One shows, one holds",
+   "Never both pivots on the same line as the ball",
+   "On turnover, the holder delays the counter"
+  ],
+  "progression": "Remove one centre-back so the pivot must cover.",
+  "diagram": {
+   "players": [
+    [
+     30,
+     24,
+     "a"
+    ],
+    [
+     30,
+     36,
+     "a"
+    ],
+    [
+     45,
+     14,
+     "a"
+    ],
+    [
+     45,
+     46,
+     "a"
+    ],
+    [
+     50,
+     30,
+     "a"
+    ],
+    [
+     38,
+     30,
+     "b"
+    ],
+    [
+     55,
+     22,
+     "b"
+    ],
+    [
+     55,
+     38,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     30,
+     24,
+     45,
+     14,
+     "pass"
+    ],
+    [
+     30,
+     36,
+     30,
+     30,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     14,
+     20,
+     4,
+     8,
+     "goal"
+    ],
+    [
+     14,
+     34,
+     4,
+     8,
+     "goal"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "number-10-pockets",
+  "name": "Finding the 10 in the pocket",
+  "tags": [
+   "number-10",
+   "central-combinations",
+   "vertical-passing"
+  ],
+  "minutes": 15,
+  "players": "10",
+  "area": "40 x 30 m",
+  "objective": "Find the attacking midfielder between opposition midfield and defence.",
+  "setup": "Team scores by receiving in the 'pocket' zone and turning to play to a striker.",
+  "coaching_points": [
+   "10 moves off the defender's shoulder",
+   "Receive on the back foot to turn",
+   "Striker pins the CBs"
+  ],
+  "progression": "Pocket zone player has 2 touches.",
+  "diagram": {
+   "players": [
+    [
+     20,
+     30,
+     "a"
+    ],
+    [
+     35,
+     18,
+     "a"
+    ],
+    [
+     35,
+     42,
+     "a"
+    ],
+    [
+     55,
+     30,
+     "a"
+    ],
+    [
+     72,
+     30,
+     "a"
+    ],
+    [
+     45,
+     24,
+     "b"
+    ],
+    [
+     45,
+     36,
+     "b"
+    ],
+    [
+     64,
+     26,
+     "b"
+    ],
+    [
+     64,
+     34,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     35,
+     18,
+     55,
+     30,
+     "pass"
+    ],
+    [
+     55,
+     30,
+     72,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     50,
+     18,
+     12,
+     24,
+     "pocket"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "two-strikers",
+  "name": "Strike partnership: near & far",
+  "tags": [
+   "two-strikers",
+   "final-third",
+   "banks-of-four"
+  ],
+  "minutes": 15,
+  "players": "6 + GK",
+  "area": "Edge of box",
+  "objective": "Two strikers coordinate: one checks short, one runs in behind.",
+  "setup": "Midfielder plays into either striker; they combine against two defenders to finish.",
+  "coaching_points": [
+   "Opposite movements \u2014 one short, one long",
+   "Flick-ons and knock-downs",
+   "Attack the second ball"
+  ],
+  "progression": "Add a third defender (back three) to solve.",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     50,
+     30,
+     "a"
+    ],
+    [
+     70,
+     24,
+     "a"
+    ],
+    [
+     70,
+     36,
+     "a"
+    ],
+    [
+     78,
+     26,
+     "b"
+    ],
+    [
+     78,
+     34,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     70,
+     24,
+     62,
+     24,
+     "run"
+    ],
+    [
+     70,
+     36,
+     86,
+     36,
+     "run"
+    ],
+    [
+     50,
+     30,
+     62,
+     24,
+     "pass"
+    ],
+    [
+     62,
+     24,
+     86,
+     36,
+     "pass"
+    ]
+   ],
+   "zones": [],
+   "cones": []
+  }
+ },
+ {
+  "id": "rest-defence",
+  "name": "Rest defence 7v5 + counter goals",
+  "tags": [
+   "rest-defence",
+   "transition",
+   "double-pivot"
+  ],
+  "minutes": 20,
+  "players": "12",
+  "area": "Half pitch",
+  "objective": "While attacking, keep a secure structure behind the ball to stop counters.",
+  "setup": "Attacking team (7) must keep 3 players behind the ball line; if defenders win it they counter at 2 mini-goals.",
+  "coaching_points": [
+   "2+1 or 3+2 rest-defence behind the ball",
+   "Mark the opposition's best outlet",
+   "Delay, don't dive in, on turnover"
+  ],
+  "progression": "Counter-attackers score double within 6 s.",
+  "diagram": {
+   "players": [
+    [
+     60,
+     14,
+     "a"
+    ],
+    [
+     60,
+     30,
+     "a"
+    ],
+    [
+     60,
+     46,
+     "a"
+    ],
+    [
+     75,
+     22,
+     "a"
+    ],
+    [
+     75,
+     38,
+     "a"
+    ],
+    [
+     40,
+     24,
+     "a"
+    ],
+    [
+     40,
+     36,
+     "a"
+    ],
+    [
+     70,
+     30,
+     "b"
+    ],
+    [
+     80,
+     30,
+     "b"
+    ],
+    [
+     50,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     50,
+     30,
+     30,
+     30,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     20,
+     20,
+     4,
+     8,
+     "goal"
+    ],
+    [
+     20,
+     32,
+     4,
+     8,
+     "goal"
+    ]
+   ],
+   "cones": [
+    [
+     45,
+     4
+    ],
+    [
+     45,
+     56
+    ]
+   ]
+  }
+ },
+ {
+  "id": "game-management",
+  "name": "Protect the lead: game scenarios",
+  "tags": [
+   "game-management",
+   "compact-block",
+   "fitness"
+  ],
+  "minutes": 20,
+  "players": "Full squad",
+  "area": "2/3 pitch",
+  "objective": "Rehearse the last 15 minutes: protecting a lead, killing time legally, staying organised when tired.",
+  "setup": "11v11 with a scenario: '1-0 up, 12 minutes left'. Subs are made as in the match plan.",
+  "coaching_points": [
+   "Keep the ball in the opponent's half",
+   "Clear lines \u2014 no risky passes",
+   "Subs know their role before stepping on"
+  ],
+  "progression": "Play the opposite scenario: '0-1 down, need a goal'.",
+  "diagram": {
+   "players": [
+    [
+     20,
+     12,
+     "b"
+    ],
+    [
+     20,
+     24,
+     "b"
+    ],
+    [
+     20,
+     36,
+     "b"
+    ],
+    [
+     20,
+     48,
+     "b"
+    ],
+    [
+     32,
+     14,
+     "b"
+    ],
+    [
+     32,
+     26,
+     "b"
+    ],
+    [
+     32,
+     34,
+     "b"
+    ],
+    [
+     32,
+     46,
+     "b"
+    ],
+    [
+     44,
+     30,
+     "b"
+    ],
+    [
+     50,
+     18,
+     "a"
+    ],
+    [
+     50,
+     42,
+     "a"
+    ],
+    [
+     60,
+     30,
+     "a"
+    ]
+   ],
+   "arrows": [],
+   "zones": [
+    [
+     16,
+     8,
+     32,
+     44,
+     "block"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "repeat-sprint",
+  "name": "Repeat-sprint pressing conditioning",
+  "tags": [
+   "fitness",
+   "pressing"
+  ],
+  "minutes": 12,
+  "players": "Any",
+  "area": "30 m lanes",
+  "objective": "Build the capacity to repeat pressing sprints late in games.",
+  "setup": "6 x (5 s sprint press to a cone + 20 s jog recovery), 3 sets with 2 min rest.",
+  "coaching_points": [
+   "Max intensity on the press",
+   "Active recovery between",
+   "Monitor RPE \u2014 scale for youth players"
+  ],
+  "progression": "Add a ball: the sprint finishes with a tackle on a server.",
+  "diagram": {
+   "players": [
+    [
+     15,
+     15,
+     "a"
+    ],
+    [
+     15,
+     30,
+     "a"
+    ],
+    [
+     15,
+     45,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     15,
+     15,
+     45,
+     15,
+     "run"
+    ],
+    [
+     15,
+     30,
+     45,
+     30,
+     "run"
+    ],
+    [
+     15,
+     45,
+     45,
+     45,
+     "run"
+    ]
+   ],
+   "zones": [],
+   "cones": [
+    [
+     45,
+     15
+    ],
+    [
+     45,
+     30
+    ],
+    [
+     45,
+     45
+    ]
+   ]
+  }
+ },
+ {
+  "id": "set-piece-corners",
+  "name": "Attacking corner routines",
+  "tags": [
+   "set-pieces"
+  ],
+  "minutes": 15,
+  "players": "11 + GK",
+  "area": "Penalty area",
+  "objective": "Two rehearsed corner routines: near-post flick and edge-of-box cut-back.",
+  "setup": "Walk through, then live against 5 defenders and a GK.",
+  "coaching_points": [
+   "Clear signals for each routine",
+   "Blockers free the target runner",
+   "Second-ball player on the edge of the box"
+  ],
+  "progression": "Defenders know one routine is coming but not which.",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     100,
+     2,
+     "a"
+    ],
+    [
+     84,
+     22,
+     "a"
+    ],
+    [
+     84,
+     34,
+     "a"
+    ],
+    [
+     80,
+     28,
+     "a"
+    ],
+    [
+     76,
+     40,
+     "a"
+    ],
+    [
+     88,
+     26,
+     "b"
+    ],
+    [
+     88,
+     34,
+     "b"
+    ],
+    [
+     90,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     100,
+     2,
+     90,
+     24,
+     "pass"
+    ],
+    [
+     84,
+     22,
+     90,
+     24,
+     "run"
+    ],
+    [
+     76,
+     40,
+     80,
+     40,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     82,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "set-piece-defending",
+  "name": "Defending set pieces: zonal + man",
+  "tags": [
+   "set-pieces",
+   "defensive-shape"
+  ],
+  "minutes": 15,
+  "players": "11 + GK",
+  "area": "Penalty area",
+  "objective": "A hybrid set-piece defence: zonal line on the 6-yard box plus markers on the best headers.",
+  "setup": "Coach serves 10 corners and 5 wide free kicks; attackers score by any contact into the goal.",
+  "coaching_points": [
+   "Zonal players attack the ball, don't wait",
+   "Markers: body contact, eyes on the ball",
+   "Everyone out together after the clearance"
+  ],
+  "progression": "Add a short-corner option to test reorganisation.",
+  "diagram": {
+   "players": [
+    [
+     6,
+     30,
+     "gk"
+    ],
+    [
+     10,
+     22,
+     "b"
+    ],
+    [
+     10,
+     30,
+     "b"
+    ],
+    [
+     10,
+     38,
+     "b"
+    ],
+    [
+     16,
+     26,
+     "b"
+    ],
+    [
+     16,
+     34,
+     "b"
+    ],
+    [
+     18,
+     26,
+     "a"
+    ],
+    [
+     18,
+     34,
+     "a"
+    ],
+    [
+     0,
+     2,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     0,
+     2,
+     12,
+     28,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     2,
+     18,
+     12,
+     24,
+     "zonal"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "wide-1v1-defending",
+  "name": "1v1 defending in wide areas",
+  "tags": [
+   "defensive-shape",
+   "wide-play",
+   "fitness"
+  ],
+  "minutes": 15,
+  "players": "6-12",
+  "area": "15 x 25 m channel",
+  "objective": "Full-backs and wide players learn to stop a winger: body shape, show them one way, delay until help arrives.",
+  "setup": "Winger receives at the top of a wide channel and tries to dribble over an end line or cross into a mini-goal; defender starts 8 m away. Rotate every 3 reps.",
+  "coaching_points": [
+   "Close down fast, then slow down the last 2 m \u2014 arrive balanced",
+   "Side-on, show them onto their weaker foot or the touchline",
+   "Don't dive in: delay until the covering midfielder arrives"
+  ],
+  "progression": "Add a covering midfielder who joins after 3 seconds to make it 2v1 for the defence.",
+  "diagram": {
+   "players": [
+    [
+     60,
+     14,
+     "a"
+    ],
+    [
+     44,
+     14,
+     "b"
+    ],
+    [
+     36,
+     26,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     60,
+     14,
+     84,
+     8,
+     "dribble"
+    ],
+    [
+     44,
+     14,
+     54,
+     12,
+     "run"
+    ],
+    [
+     36,
+     26,
+     48,
+     16,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     30,
+     2,
+     60,
+     22,
+     "channel"
+    ]
+   ],
+   "cones": [
+    [
+     90,
+     4
+    ],
+    [
+     90,
+     22
+    ]
+   ]
+  }
+ },
+ {
+  "id": "finishing-crosses",
+  "name": "Finishing from crosses & cut-backs",
+  "tags": [
+   "final-third",
+   "two-strikers",
+   "wide-play"
+  ],
+  "minutes": 15,
+  "players": "8-12 + GK",
+  "area": "Penalty area + wide channels",
+  "objective": "Strikers and midfielders attack the box with the right runs and finish first time from crosses and cut-backs.",
+  "setup": "Wide player receives, beats a cone and crosses or cuts back. Three runners attack near post, far post and penalty spot. Alternate sides.",
+  "coaching_points": [
+   "Arrive late and fast \u2014 don't stand waiting in the box",
+   "Near post, far post, penalty spot: never two in the same space",
+   "Hit the target first time: low and hard or across the keeper"
+  ],
+  "progression": "Add two defenders and a time limit of 8 seconds from the wide pass.",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     70,
+     54,
+     "a"
+    ],
+    [
+     78,
+     30,
+     "a"
+    ],
+    [
+     74,
+     38,
+     "a"
+    ],
+    [
+     70,
+     24,
+     "a"
+    ],
+    [
+     86,
+     34,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     70,
+     54,
+     86,
+     52,
+     "dribble"
+    ],
+    [
+     86,
+     52,
+     88,
+     34,
+     "pass"
+    ],
+    [
+     78,
+     30,
+     88,
+     30,
+     "run"
+    ],
+    [
+     74,
+     38,
+     84,
+     40,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     82,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": [
+    [
+     80,
+     52
+    ]
+   ]
+  }
+ }
+]

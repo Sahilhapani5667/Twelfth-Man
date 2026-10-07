@@ -1,0 +1,9 @@
+date,opponent,venue,formation,goals_for,goals_against,shots_for,shots_against,sot_for,sot_against,possession,passes_attempted,passes_completed,press_rating,directness_rating,width_rating,corners_for,late_goals_against,notes
+2026-08-09,Harbour Town,away,4-3-3,2,0,15,6,7,2,61,380,300,5,2,4,7,0,
+2026-08-16,Riverside FC,home,4-3-3,3,1,15,8,7,3,59,370,290,5,2,4,6,0,
+2026-08-23,Valley Rangers,away,4-3-3,1,1,12,9,5,4,58,360,280,4,2,4,5,1,
+2026-08-30,Oakley Park,home,4-3-3,4,1,19,7,10,3,64,410,330,5,2,4,9,1,
+2026-09-06,Westbrook Youth,away,4-3-3,1,2,10,12,4,6,55,340,262,4,3,4,4,2,Struggled vs long balls
+2026-09-13,Kingsbridge Rovers,home,4-3-3,2,1,14,9,6,3,60,375,295,5,2,4,6,1,
+2026-09-20,St. Mary's Colts,away,4-3-3,2,2,13,11,5,5,57,355,275,4,2,4,5,2,
+2026-09-27,Eastfield United,home,4-3-3,3,0,17,5,8,2,63,400,320,5,2,4,8,0,

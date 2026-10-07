@@ -1,0 +1,11 @@
+date,opponent,venue,formation,goals_for,goals_against,shots_for,shots_against,sot_for,sot_against,possession,passes_attempted,passes_completed,press_rating,directness_rating,width_rating,corners_for,late_goals_against,notes
+2026-08-09,Kingsbridge Rovers,home,4-4-2,2,1,13,9,6,4,52,285,190,3,4,3,6,1,"Strong start, faded late"
+2026-08-16,Northgate Athletic,away,4-4-2,1,3,8,15,3,7,41,240,150,2,4,3,3,2,Pressed hard by their front three
+2026-08-23,Eastfield United,home,4-4-2,3,0,16,6,8,2,55,300,205,3,4,4,8,0,
+2026-08-30,St. Mary's Colts,away,4-4-2,1,1,10,11,4,4,47,270,175,3,4,3,4,1,Conceded from a counter at 78'
+2026-09-06,Harbour Town,home,4-4-2,2,2,12,12,5,5,50,280,185,3,5,3,5,2,Two late goals conceded
+2026-09-13,Westbrook Youth,away,4-2-3-1,0,2,7,13,2,6,44,260,165,2,3,3,2,1,Tried 4-2-3-1, lacked a 10
+2026-09-20,Valley Rangers,home,4-4-2,4,2,18,10,9,4,54,295,200,4,4,4,9,1,
+2026-09-27,Kingsbridge Rovers,away,4-4-2,1,2,9,12,4,5,46,255,160,3,4,3,4,2,Countered twice after 70'
+2026-10-01,Oakley Park,home,4-4-2,2,0,14,7,6,2,53,290,198,3,4,3,7,0,
+2026-10-04,Eastfield United,away,4-4-2,1,1,11,10,4,4,49,275,180,3,4,3,5,1,
