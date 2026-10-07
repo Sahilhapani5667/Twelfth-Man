@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+data/cache/
+*.db
+.env
+.DS_Store
+*.log
+data/api_usage.jsonl
+data/evals/
+scripts/eval_assistant.py

@@ -1,0 +1,9 @@
+anthropic==1.11.0
+fastapi==0.142.2
+numpy==2.5.3
+pandas==3.0.6
+python-multipart==0.0.32
+requests==2.34.2
+scikit-learn==1.9.1
+scipy==1.18.1
+uvicorn==0.54.0
