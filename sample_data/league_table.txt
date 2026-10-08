@@ -1,0 +1,10 @@
+Pos Team P W D L GF GA GD Pts
+1 Northgate Athletic 8 5 2 1 18 8 10 17
+2 Riverside FC 10 4 3 3 17 14 3 15
+3 Valley Rangers 9 4 2 3 16 14 2 14
+4 Kingsbridge Rovers 9 4 1 4 15 15 0 13
+5 Westbrook Youth 9 3 3 3 12 11 1 12
+6 St. Mary's Colts 9 3 3 3 13 14 -1 12
+7 Eastfield United 9 2 4 3 11 13 -2 10
+8 Harbour Town 9 2 3 4 12 16 -4 9
+9 Oakley Park 9 1 3 5 8 17 -9 6
