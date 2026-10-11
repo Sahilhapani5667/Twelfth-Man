@@ -108,7 +108,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "five-second-rule",
@@ -225,7 +226,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "compact-block-shadow",
@@ -348,7 +350,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "defend-the-box",
@@ -456,7 +459,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "vertical-through-lines",
@@ -582,7 +586,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "transition-3v2",
@@ -668,7 +673,8 @@
    ],
    "zones": [],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "build-up-under-pressure",
@@ -770,7 +776,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "rondo-5v2",
@@ -848,7 +855,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "wide-overload-2v1",
@@ -945,7 +953,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "switch-play",
@@ -1047,7 +1056,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "central-combos",
@@ -1131,7 +1141,8 @@
    ],
    "zones": [],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "back-three-shifts",
@@ -1218,7 +1229,8 @@
    ],
    "zones": [],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "wing-back-timing",
@@ -1309,7 +1321,8 @@
      56
     ]
    ]
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "front-three-press",
@@ -1398,7 +1411,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "midfield-triangle",
@@ -1492,7 +1506,8 @@
    ],
    "zones": [],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "double-pivot",
@@ -1589,7 +1604,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "number-10-pockets",
@@ -1684,7 +1700,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "two-strikers",
@@ -1770,7 +1787,8 @@
    ],
    "zones": [],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "rest-defence",
@@ -1879,7 +1897,8 @@
      56
     ]
    ]
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "game-management",
@@ -1974,7 +1993,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "repeat-sprint",
@@ -2050,7 +2070,8 @@
      45
     ]
    ]
-  }
+  },
+  "ages": "12+"
  },
  {
   "id": "set-piece-corners",
@@ -2150,7 +2171,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "set-piece-defending",
@@ -2237,7 +2259,8 @@
     ]
    ],
    "cones": []
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "wide-1v1-defending",
@@ -2318,7 +2341,8 @@
      22
     ]
    ]
-  }
+  },
+  "ages": "all"
  },
  {
   "id": "finishing-crosses",
@@ -2417,6 +2441,1000 @@
      52
     ]
    ]
+  },
+  "ages": "all"
+ },
+ {
+  "id": "dribbling-gates",
+  "name": "Dribbling gates",
+  "tags": [
+   "technique",
+   "dribbling",
+   "fun-games"
+  ],
+  "minutes": 12,
+  "players": "6-16",
+  "area": "25 x 25 m",
+  "objective": "Close control and changes of direction: every player with a ball, dribbling through as many gates as possible.",
+  "setup": "Scatter 8-10 small gates (two cones 1 m apart) in the area. Players dribble through a gate, then find a different one. Count gates in 60 seconds.",
+  "coaching_points": [
+   "Small touches, ball close to your feet",
+   "Head up between gates to find space",
+   "Use both feet and the outside of the foot"
+  ],
+  "progression": "Add 2 defenders who try to knock balls out; or only weaker foot for one round.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     20,
+     15,
+     "a"
+    ],
+    [
+     55,
+     22,
+     "a"
+    ],
+    [
+     35,
+     42,
+     "a"
+    ],
+    [
+     70,
+     45,
+     "a"
+    ],
+    [
+     80,
+     18,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     20,
+     15,
+     30,
+     25,
+     "dribble"
+    ],
+    [
+     55,
+     22,
+     65,
+     30,
+     "dribble"
+    ]
+   ],
+   "zones": [
+    [
+     10,
+     5,
+     80,
+     50,
+     ""
+    ]
+   ],
+   "cones": [
+    [
+     28,
+     22
+    ],
+    [
+     28,
+     26
+    ],
+    [
+     62,
+     30
+    ],
+    [
+     62,
+     34
+    ],
+    [
+     45,
+     12
+    ],
+    [
+     49,
+     12
+    ],
+    [
+     40,
+     45
+    ],
+    [
+     44,
+     45
+    ],
+    [
+     75,
+     30
+    ],
+    [
+     75,
+     34
+    ]
+   ]
+  }
+ },
+ {
+  "id": "first-touch-half-turn",
+  "name": "First touch & half-turn",
+  "tags": [
+   "technique",
+   "first-touch",
+   "passing",
+   "build-up"
+  ],
+  "minutes": 15,
+  "players": "6-12",
+  "area": "20 x 15 m",
+  "objective": "Receive on the half-turn with an open body so the next action is forward.",
+  "setup": "Groups of 3 in a line: end player passes to the middle player, who receives across the body and plays to the far end. Rotate every minute.",
+  "coaching_points": [
+   "Check your shoulder before the ball arrives",
+   "Open your body: receive with the back foot",
+   "First touch out of your feet, towards where you want to go"
+  ],
+  "progression": "Add a passive defender behind the middle player; then make it active.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     15,
+     30,
+     "a"
+    ],
+    [
+     50,
+     30,
+     "a"
+    ],
+    [
+     85,
+     30,
+     "a"
+    ],
+    [
+     55,
+     34,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     15,
+     30,
+     48,
+     30,
+     "pass"
+    ],
+    [
+     50,
+     30,
+     83,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [],
+   "cones": [
+    [
+     45,
+     26
+    ],
+    [
+     55,
+     26
+    ],
+    [
+     45,
+     34
+    ],
+    [
+     55,
+     34
+    ]
+   ]
+  }
+ },
+ {
+  "id": "passing-square",
+  "name": "Passing square: pass and follow",
+  "tags": [
+   "technique",
+   "passing",
+   "possession",
+   "warmup"
+  ],
+  "minutes": 12,
+  "players": "8-16",
+  "area": "15 x 15 m square",
+  "objective": "Crisp, accurate passing and movement after the pass.",
+  "setup": "Players queue at each corner of a square. Pass to the next corner and follow your pass. Change direction every 2 minutes.",
+  "coaching_points": [
+   "Pass to the receiver's far foot",
+   "Pass, then move straight away",
+   "Talk: call for the ball"
+  ],
+  "progression": "Two balls at once; then one-touch only.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     30,
+     15,
+     "a"
+    ],
+    [
+     70,
+     15,
+     "a"
+    ],
+    [
+     70,
+     45,
+     "a"
+    ],
+    [
+     30,
+     45,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     30,
+     15,
+     68,
+     15,
+     "pass"
+    ],
+    [
+     70,
+     15,
+     70,
+     43,
+     "pass"
+    ],
+    [
+     32,
+     17,
+     66,
+     17,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     30,
+     15,
+     40,
+     30,
+     ""
+    ]
+   ],
+   "cones": [
+    [
+     30,
+     15
+    ],
+    [
+     70,
+     15
+    ],
+    [
+     70,
+     45
+    ],
+    [
+     30,
+     45
+    ]
+   ]
+  }
+ },
+ {
+  "id": "gk-handling-distribution",
+  "name": "Goalkeeper: handling & distribution",
+  "tags": [
+   "goalkeeping",
+   "build-up"
+  ],
+  "minutes": 15,
+  "players": "1-3 GKs + 2 servers",
+  "area": "Penalty area",
+  "objective": "Safe handling of shots and crosses, then quick, accurate distribution to start attacks.",
+  "setup": "Servers shoot and cross from different angles. After each save, the keeper distributes to a target (throw to a full-back, pass to a centre-back, or kick to a striker zone).",
+  "coaching_points": [
+   "Get your body behind the ball",
+   "Catch at the highest point on crosses",
+   "Look up before distributing \u2014 pick the quickest safe option"
+  ],
+  "progression": "Add a striker who follows in for rebounds.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     8,
+     30,
+     "gk"
+    ],
+    [
+     30,
+     20,
+     "a"
+    ],
+    [
+     30,
+     42,
+     "a"
+    ],
+    [
+     45,
+     8,
+     "n"
+    ],
+    [
+     60,
+     52,
+     "n"
+    ]
+   ],
+   "arrows": [
+    [
+     30,
+     20,
+     10,
+     28,
+     "pass"
+    ],
+    [
+     8,
+     30,
+     45,
+     8,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     2,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "world-cup-4v4",
+  "name": "4v4 mini World Cup",
+  "tags": [
+   "fun-games",
+   "possession",
+   "final-third",
+   "transition"
+  ],
+  "minutes": 20,
+  "players": "8-16",
+  "area": "30 x 20 m pitches",
+  "objective": "Lots of touches, decisions and goals in a fun competitive format.",
+  "setup": "Teams of 4 named after countries play short 4-minute games on small pitches with mini-goals. Winners stay on, keep a league table.",
+  "coaching_points": [
+   "Spread out: make the pitch big when you have the ball",
+   "Shoot early when you see the goal",
+   "Win it back together when you lose it"
+  ],
+  "progression": "Goals only count if every player has touched the ball in the move.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     25,
+     20,
+     "a"
+    ],
+    [
+     25,
+     40,
+     "a"
+    ],
+    [
+     45,
+     30,
+     "a"
+    ],
+    [
+     55,
+     18,
+     "b"
+    ],
+    [
+     60,
+     40,
+     "b"
+    ],
+    [
+     72,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     25,
+     20,
+     45,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     8,
+     25,
+     4,
+     10,
+     "goal"
+    ],
+    [
+     88,
+     25,
+     4,
+     10,
+     "goal"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "recovery-session",
+  "name": "Recovery: mobility & light rondo",
+  "tags": [
+   "recovery",
+   "possession"
+  ],
+  "minutes": 20,
+  "players": "Any",
+  "area": "Half pitch",
+  "objective": "Help legs recover after a match while keeping touch on the ball.",
+  "setup": "10 minutes easy jog and mobility (hips, hamstrings, calves), then a relaxed 5v2 rondo with no pressing intensity, finish with stretching.",
+  "coaching_points": [
+   "Keep the intensity low \u2014 no sprinting",
+   "Talk about the last match: one positive, one thing to improve",
+   "Hydrate and refuel after the session"
+  ],
+  "progression": "None \u2014 keep it light.",
+  "ages": "12+",
+  "diagram": {
+   "players": [
+    [
+     20,
+     18,
+     "a"
+    ],
+    [
+     32,
+     14,
+     "a"
+    ],
+    [
+     40,
+     26,
+     "a"
+    ],
+    [
+     34,
+     40,
+     "a"
+    ],
+    [
+     20,
+     36,
+     "a"
+    ],
+    [
+     28,
+     24,
+     "b"
+    ],
+    [
+     30,
+     31,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     20,
+     18,
+     34,
+     40,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     16,
+     12,
+     26,
+     30,
+     ""
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "agility-ladder",
+  "name": "Speed & agility circuit",
+  "tags": [
+   "agility",
+   "fitness",
+   "warmup"
+  ],
+  "minutes": 12,
+  "players": "Any",
+  "area": "Agility ladder + cones",
+  "objective": "Quick feet, balance and acceleration over short distances.",
+  "setup": "Ladder footwork patterns, then a zig-zag cone slalom and a 10 m sprint. Walk back to recover. 6-8 rounds.",
+  "coaching_points": [
+   "Stay on the balls of your feet",
+   "Arms drive the legs",
+   "Quality over speed first, then speed"
+  ],
+  "progression": "Finish each round with a pass or a shot.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     10,
+     30,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     12,
+     30,
+     40,
+     30,
+     "run"
+    ],
+    [
+     42,
+     30,
+     70,
+     20,
+     "run"
+    ],
+    [
+     70,
+     20,
+     90,
+     30,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     14,
+     27,
+     26,
+     6,
+     "ladder"
+    ]
+   ],
+   "cones": [
+    [
+     50,
+     25
+    ],
+    [
+     60,
+     35
+    ],
+    [
+     70,
+     25
+    ],
+    [
+     80,
+     35
+    ]
+   ]
+  }
+ },
+ {
+  "id": "heading-duels",
+  "name": "Heading & aerial duels",
+  "tags": [
+   "aerial",
+   "defensive-shape",
+   "set-pieces"
+  ],
+  "minutes": 15,
+  "players": "6-12",
+  "area": "Penalty area",
+  "objective": "Win first contact in the air: attacking and defensive headers.",
+  "setup": "Coach serves high balls in pairs: defender heads high and wide, attacker heads down at goal. Progress to 1v1 contests from crosses.",
+  "coaching_points": [
+   "Eyes open, attack the ball with your forehead",
+   "Arms for balance and protection \u2014 not to push",
+   "Defenders: height and distance; attackers: down and on target"
+  ],
+  "progression": "Live 2v2 crosses with a goalkeeper.",
+  "ages": "12+",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     80,
+     26,
+     "a"
+    ],
+    [
+     80,
+     34,
+     "b"
+    ],
+    [
+     60,
+     54,
+     "n"
+    ]
+   ],
+   "arrows": [
+    [
+     60,
+     54,
+     80,
+     30,
+     "pass"
+    ],
+    [
+     80,
+     26,
+     92,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     82,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "shooting-edge-of-box",
+  "name": "Shooting from the edge of the box",
+  "tags": [
+   "final-third",
+   "shooting",
+   "technique"
+  ],
+  "minutes": 15,
+  "players": "6-12 + GK",
+  "area": "Edge of the box",
+  "objective": "Strike cleanly and on target from 16-20 metres after a lay-off.",
+  "setup": "Player passes into a server on the edge of the box, receives the lay-off and shoots first or second touch. Alternate sides.",
+  "coaching_points": [
+   "Body over the ball to keep the shot low",
+   "Strike with the laces through the middle of the ball",
+   "Follow in for rebounds"
+  ],
+  "progression": "Add a defender who closes down from behind.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     60,
+     30,
+     "a"
+    ],
+    [
+     76,
+     30,
+     "n"
+    ]
+   ],
+   "arrows": [
+    [
+     60,
+     30,
+     74,
+     30,
+     "pass"
+    ],
+    [
+     76,
+     30,
+     68,
+     34,
+     "pass"
+    ],
+    [
+     68,
+     34,
+     94,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [
+    [
+     82,
+     12,
+     18,
+     36,
+     "box"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "attacking-1v1",
+  "name": "1v1 attacking: beat your defender",
+  "tags": [
+   "dribbling",
+   "final-third",
+   "wide-play",
+   "technique"
+  ],
+  "minutes": 15,
+  "players": "6-12 + GK",
+  "area": "20 x 15 m to goal",
+  "objective": "Confidence to take on a defender and finish or cross.",
+  "setup": "Attacker receives facing a defender 10 m away and tries to dribble past and score in a mini-goal or the big goal.",
+  "coaching_points": [
+   "Attack the defender at speed, then slow down to set up the move",
+   "Use a feint or step-over, then explode past",
+   "Protect the ball with your body once past"
+  ],
+  "progression": "Defender starts closer; attacker has 6 seconds.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     95,
+     30,
+     "gk"
+    ],
+    [
+     55,
+     30,
+     "a"
+    ],
+    [
+     70,
+     30,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     55,
+     30,
+     66,
+     24,
+     "dribble"
+    ],
+    [
+     66,
+     24,
+     82,
+     26,
+     "dribble"
+    ]
+   ],
+   "zones": [],
+   "cones": [
+    [
+     50,
+     20
+    ],
+    [
+     50,
+     40
+    ]
+   ]
+  }
+ },
+ {
+  "id": "end-zone-game",
+  "name": "End-zone game",
+  "tags": [
+   "fun-games",
+   "possession",
+   "vertical-passing",
+   "build-up"
+  ],
+  "minutes": 15,
+  "players": "8-16",
+  "area": "30 x 25 m with end zones",
+  "objective": "Keep the ball and find a teammate running into the end zone.",
+  "setup": "Teams score a point by passing to a teammate who runs into the end zone and controls the ball there. No goalkeepers.",
+  "coaching_points": [
+   "Time your run into the zone \u2014 don't wait there",
+   "Look for the forward pass first",
+   "Spread out to make the pitch big"
+  ],
+  "progression": "Must complete 3 passes before a pass into the zone counts.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     30,
+     20,
+     "a"
+    ],
+    [
+     40,
+     40,
+     "a"
+    ],
+    [
+     55,
+     28,
+     "a"
+    ],
+    [
+     45,
+     22,
+     "b"
+    ],
+    [
+     60,
+     40,
+     "b"
+    ],
+    [
+     35,
+     32,
+     "b"
+    ]
+   ],
+   "arrows": [
+    [
+     55,
+     28,
+     82,
+     24,
+     "pass"
+    ],
+    [
+     60,
+     18,
+     84,
+     22,
+     "run"
+    ]
+   ],
+   "zones": [
+    [
+     5,
+     5,
+     12,
+     50,
+     "zone"
+    ],
+    [
+     83,
+     5,
+     12,
+     50,
+     "zone"
+    ]
+   ],
+   "cones": []
+  }
+ },
+ {
+  "id": "pattern-play-build-up",
+  "name": "Pattern play: build-up to attack",
+  "tags": [
+   "build-up",
+   "possession",
+   "vertical-passing",
+   "midfield-triangle"
+  ],
+  "minutes": 15,
+  "players": "8-11",
+  "area": "Half pitch",
+  "objective": "Rehearse two passing patterns from the goalkeeper to a shot so every player knows their movement.",
+  "setup": "Unopposed: keeper to centre-back, into midfield, wide, cross and finish. Repeat on both sides, then a second pattern through the middle.",
+  "coaching_points": [
+   "Timing of movement is more important than speed",
+   "Call the pattern so everyone knows it",
+   "Finish every move with a shot"
+  ],
+  "progression": "Add 2-3 passive defenders, then make them active.",
+  "ages": "all",
+  "diagram": {
+   "players": [
+    [
+     8,
+     30,
+     "gk"
+    ],
+    [
+     22,
+     20,
+     "a"
+    ],
+    [
+     38,
+     28,
+     "a"
+    ],
+    [
+     55,
+     50,
+     "a"
+    ],
+    [
+     80,
+     30,
+     "a"
+    ]
+   ],
+   "arrows": [
+    [
+     8,
+     30,
+     22,
+     20,
+     "pass"
+    ],
+    [
+     22,
+     20,
+     38,
+     28,
+     "pass"
+    ],
+    [
+     38,
+     28,
+     55,
+     50,
+     "pass"
+    ],
+    [
+     55,
+     50,
+     80,
+     30,
+     "pass"
+    ]
+   ],
+   "zones": [],
+   "cones": []
   }
  }
 ]

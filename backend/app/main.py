@@ -288,7 +288,7 @@ def gameplan(req: PlanRequest, request: Request):
     """Coach mode: the whole plan in plain football language."""
     _check(req.team_id, req.opponent_id, request)
     chosen = _tactics(req.tactics) if req.tactics else None
-    return coach.game_plan(engine, req.team_id, req.opponent_id, req.venue, _drills_for, chosen)
+    return coach.game_plan(engine, req.team_id, req.opponent_id, req.venue, _drills_for, chosen, DRILLS)
 
 
 class AskRequest(BaseModel):
@@ -305,8 +305,9 @@ def ask(req: AskRequest, request: Request):
     """Ask the Coach: answers grounded in this match's game plan and the simulation engine."""
     _check(req.team_id, req.opponent_id, request)
     chosen = _tactics(req.tactics) if req.tactics else None
-    plan = coach.game_plan(engine, req.team_id, req.opponent_id, req.venue, _drills_for, chosen)
-    return assistant.ask(engine, req.team_id, req.opponent_id, req.venue, req.question.strip(), req.history, plan)
+    plan = coach.game_plan(engine, req.team_id, req.opponent_id, req.venue, _drills_for, chosen, DRILLS)
+    return assistant.ask(engine, req.team_id, req.opponent_id, req.venue, req.question.strip(), req.history, plan,
+                         viewer_id=_user(request)["id"])
 
 
 @app.get("/api/drills")
@@ -458,7 +459,7 @@ def logout(request: Request):
 def me(request: Request):
     u = request.state.user
     if not u:
-        raise HTTPException(401, "Not signed in")
+        return {"user": None, "club": None}
     return {"user": u, "club": accounts.club(u["id"])}
 
 

@@ -154,11 +154,35 @@ def roles(t: dict, zones: dict) -> list[dict]:
     return out
 
 
-def subs_advice(t: dict) -> str:
-    if _level(t["press"]) == "high":
-        return ("Pressing high is tiring. Plan your first changes around 55–60 minutes, especially up front and in midfield, "
-                "and keep one change for the last 10 minutes.")
-    return "Make your first change around 60–65 minutes and keep one change for the last 10 minutes to protect a result."
+def _int(v, default):
+    try:
+        return int(str(v).strip())
+    except (TypeError, ValueError):
+        return default
+
+
+def subs_advice(t: dict, club: dict | None = None) -> str:
+    """Timing scaled to the club's match length and substitution rules."""
+    club = club or {}
+    half = _int(club.get("half_length"), 45)
+    full = 2 * half
+    max_subs = str(club.get("max_subs") or "").strip()
+    rolling = club.get("subs_rule") == "rolling"
+    pressing = _level(t["press"]) == "high"
+    first = round(full * (0.6 if pressing else 0.68) / 5) * 5
+    late = max(5, round(full * 0.12 / 5) * 5)
+    if rolling:
+        rest = max(5, round(full * 0.1 / 5) * 5)
+        text = (f"Subs are rolling, so rotate fresh legs in and out. Give your hardest-working players a {rest}-minute rest "
+                f"in each half, starting around minute {round(half * 0.6)}" + (", especially up front and in midfield because pressing is tiring" if pressing else "") + ".")
+        if max_subs and max_subs.isdigit():
+            text += f" Check whether players going back on count towards your {max_subs}."
+        return text
+    count = f"your {max_subs} changes" if max_subs.isdigit() else "your changes"
+    if pressing:
+        return (f"Pressing high is tiring. Make your first changes around minute {first}, especially up front and in midfield, "
+                f"and keep one of {count} for the last {late} minutes.")
+    return f"Make your first change around minute {first} and keep one of {count} for the last {late} minutes to protect a result."
 
 
 def verdicts(impact: dict) -> list[dict]:
@@ -191,23 +215,54 @@ def simple_drill(d: dict) -> dict:
             "diagram": d["diagram"]}
 
 
-def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, chosen: dict | None = None) -> dict:
+def _option(engine, us, opp, venue, usual, base, tactics, name, recommended=False, confidence=None):
+    """Compare a way of playing with the usual one, in words."""
+    ev = engine.evaluate(us, opp, tactics, venue, "normal")
+    ff_u, fa_u = engine._avg_fatigue(usual, "normal")
+    ff_n, fa_n = engine._avg_fatigue(tactics, "normal")
+    impact = {"xg_for": ev["xg_for"] - base["xg_for"], "xg_against": ev["xg_against"] - base["xg_against"],
+              "fatigue_change": fa_n - fa_u}
+    gain = ev["xpts"] - base["xpts"]
+    v = verdicts(impact)
+    if gain < -0.03:
+        v.insert(0, {"text": "Slightly worse overall for this game", "good": False})
+    return {"name": name, "tactics": tactics, "summary": describe_tactics(tactics), "verdicts": v,
+            "recommended": recommended, "confidence": confidence, "gain": round(gain, 3)}
+
+
+def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, chosen: dict | None = None,
+              all_drills: list | None = None) -> dict:
     us, opp = engine.team(team_id), engine.team(opponent_id)
     mu = engine.matchup(team_id, opponent_id)
     usual = engine.default_tactics(us)
+    both_pro = team_id in engine.pro and opponent_id in engine.pro
     rec = engine.recommend(team_id, opponent_id, usual, venue)
     best = rec["recommendations"][0] if rec["recommendations"] else None
-    plan_t = {**usual, **chosen} if chosen else (best["tactics"] if best else usual)
+    # Two professional teams: both play their usual way, so the result doesn't depend on which side is "mine".
+    plan_t = {**usual, **chosen} if chosen else (usual if both_pro or not best else best["tactics"])
     ev = engine.evaluate(us, opp, plan_t, venue, "normal")
+    base = engine.evaluate(us, opp, usual, venue, "normal")
     p = ev["p"]
 
     options = [{"name": "Your usual way", "tactics": usual, "summary": describe_tactics(usual),
-                "verdicts": [{"text": "What the players already know", "good": True}], "recommended": not best}]
+                "verdicts": [{"text": "What the players already know", "good": True}],
+                "recommended": not best or both_pro, "gain": 0.0}]
+    seen = {tuple(sorted(usual.items()))}
     for i, r in enumerate(rec["recommendations"][:2]):
-        options.append({"name": _change_words(usual, r["tactics"]), "tactics": r["tactics"], "summary": describe_tactics(r["tactics"]),
-                        "verdicts": verdicts(r["impact"]), "recommended": i == 0,
-                        "confidence": {"high": "We're confident this helps", "moderate": "Likely to help",
-                                       "low": "Might help"}[r["confidence_label"]]})
+        options.append(_option(engine, us, opp, venue, usual, base, r["tactics"], _change_words(usual, r["tactics"]),
+                               recommended=(i == 0 and not both_pro),
+                               confidence={"high": "We're confident this helps", "moderate": "Likely to help",
+                                           "low": "Might help"}[r["confidence_label"]]))
+        seen.add(tuple(sorted(r["tactics"].items())))
+    # Always offer a safer and a bolder alternative so the coach has real choices.
+    safer = {**usual, "press": max(10, usual["press"] - 25), "width": max(10, usual["width"] - 10)}
+    bolder = {**usual, "press": min(90, usual["press"] + 25), "tempo": min(90, usual["tempo"] + 20)}
+    for t, name in ((safer, "Safer: drop deeper and stay compact"), (bolder, "Bolder: press higher and play forward quicker")):
+        if len(options) >= 3:
+            break
+        if tuple(sorted(t.items())) not in seen:
+            options.append(_option(engine, us, opp, venue, usual, base, t, name))
+            seen.add(tuple(sorted(t.items())))
 
     acc = getattr(engine, "accounts", None)
     owner = acc.owner_of(team_id) if acc and not team_id.startswith("opp-") and team_id not in engine.pro else None
@@ -223,29 +278,39 @@ def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, ch
 
     DANGER_PLAIN.setdefault("Huge difference in level", ("A much higher level", "They're professional or international players. Expect to defend for long spells — stay compact, help each other and don't get frustrated."))
     DANGER_PLAIN.setdefault("You're the much stronger side", ("Don't get complacent", "You're at a far higher level. Keep the tempo high and finish your chances."))
+    unknown = opp.get("source") == "scouted" and not (opp.get("scouting") or {}).get("press_rating") and not (opp.get("scouting") or {}).get("formation")
     dangers = [dict(zip(("title", "text"), DANGER_PLAIN.get(r["title"], (r["title"], r["detail"])))) for r in mu["risks"][:3]]
+    if unknown:
+        dangers = [d for d in dangers if d["title"] != "No big surprises"]
+        dangers.insert(0, {"title": "Not scouted yet", "text": "We don't know how they play. Watch the first 10 minutes closely, "
+                           "keep your shape, and add scouting notes after the game so next time's plan is sharper."})
+        dangers = dangers[:3]
+    style = ("Not scouted yet — add notes on the Season page to learn their style."
+             if unknown else PLAIN_STYLE.get(opp["archetype"]["name"], opp["archetype"]["description"]))
     past = mu.get("h2h") or []
+    formation_known = not unknown
     return {
         "team": {"id": us["id"], "name": us["label"].split(" · ")[0], "formation": us["formation"],
                  "roster": us.get("roster") or []},
-        "opponent": {"id": opp["id"], "name": opp["label"].split(" · ")[0], "formation": opp["formation"],
-                     "style": PLAIN_STYLE.get(opp["archetype"]["name"], opp["archetype"]["description"]),
-                     "style_name": opp["archetype"]["name"]},
+        "opponent": {"id": opp["id"], "name": opp["label"].split(" · ")[0],
+                     "formation": opp["formation"] if formation_known else None,
+                     "style": style, "style_name": opp["archetype"]["name"], "scouted": not unknown},
         "difficulty": difficulty(p[0], p[2]),
         "dangers": dangers,
         "plan": {"tactics": plan_t, "summary": describe_tactics(plan_t),
                  "changed": plan_t != usual, "change_title": _change_words(usual, plan_t) if plan_t != usual else None,
                  "instructions": instructions(plan_t, mu["zones"]), "roles": roles(plan_t, mu["zones"]),
-                 "subs": subs_advice(plan_t)},
+                 "subs": subs_advice(plan_t, club)},
         "zones": mu["zones"],
         "past_meetings": past,
+        "both_pro": both_pro,
         "chances": {"win": round(p[0], 3), "draw": round(p[1], 3), "loss": round(p[2], 3)},
         "options": options,
         "focus": [dict(zip(("title", "text"), FOCUS_PLAIN.get(w["title"], (w["title"], w["detail"])))) for w in rec["weaknesses"][:3]],
         "drills": drills,
         "week": weekly_training(best["drill_tags"] if best else [], [t for w in rec["weaknesses"] for t in w["tags"]],
-                                [d["title"] for d in dangers], opp["label"].split(" · ")[0], club.get("training_days", ""),
-                                next_fx["date"] if next_fx else None, drills_for),
+                                [d["title"] for d in dangers], opp["label"].split(" · ")[0], club,
+                                next_fx["date"] if next_fx else None, all_drills or [], plan_t["formation"], opp["id"]),
     }
 
 
@@ -253,70 +318,160 @@ def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, ch
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 CONDITIONED_GAMES = {
-    "pressing": "8v8 game: a goal scored within 8 seconds of winning the ball counts double.",
-    "counter-press": "8v8 game: if you lose the ball, win it back within 5 seconds for a bonus point.",
-    "transition": "8v8 game: after every turnover, the team that wins it must shoot within 10 seconds.",
-    "wide-play": "8v8 game with wide channels: goals from a cross or cut-back count double.",
-    "defensive-shape": "8v8 game: defending team scores a point for every 5 passes they force sideways or backwards.",
-    "compact-block": "8v8 game: defenders may not let a pass go between their lines — coach freezes play to check distances.",
-    "possession": "8v8 game: 6 passes in a row earns a point; goals still count.",
-    "build-up": "8v8 game: goal kicks must be played short; if pressed, go long into a target zone.",
-    "set-pieces": "8v8 game: every stoppage restarts with a corner or wide free kick to practise routines.",
-    "fitness": "4 x 4-minute small-sided games at full intensity, 2 minutes rest between.",
-    "game-management": "11v11 scenario: '1-0 up, 10 minutes left' — then swap: '0-1 down, 10 minutes left'.",
-    "final-third": "8v8 game: all goals must come from inside the box, first-time finishes count double.",
+    "pressing": "{n} game: a goal scored within 8 seconds of winning the ball counts double.",
+    "counter-press": "{n} game: if you lose the ball, win it back within 5 seconds for a bonus point.",
+    "transition": "{n} game: after every turnover, the team that wins it must shoot within 10 seconds.",
+    "wide-play": "{n} game with wide channels: goals from a cross or cut-back count double.",
+    "defensive-shape": "{n} game: the defending team scores a point for every 5 passes they force sideways or backwards.",
+    "compact-block": "{n} game: coach freezes play to check the distances between your lines.",
+    "possession": "{n} game: 6 passes in a row earns a point; goals still count.",
+    "build-up": "{n} game: goal kicks must be played short; if pressed, go long into a target zone.",
+    "set-pieces": "{n} game: every stoppage restarts with a corner or wide free kick to practise routines.",
+    "fitness": "4 x 4-minute {n} games at full intensity, 2 minutes rest between.",
+    "game-management": "Scenario game: '1-0 up, 10 minutes left' — then swap to '0-1 down, 10 minutes left'.",
+    "final-third": "{n} game: all goals must come from inside the box; first-time finishes count double.",
+    "technique": "{n} game: two-touch maximum, and every player must touch the ball before a goal counts.",
+    "fun-games": "{n} mini-tournament: short games, winners stay on, keep a league table.",
+    "recovery": "Relaxed {n} keep-ball at walking pace — no tackles.",
 }
+
+THEMES = {
+    "recovery": ("Recovery", "Help the legs recover from the last game and talk it through.", ["recovery", "possession"], "low"),
+    "weakness": ("Fix our weaknesses", "Work on what your results say needs improving.", None, "high"),
+    "technique": ("Technique & finishing", "Sharpen first touch, passing and finishing.", ["technique", "first-touch", "shooting", "final-third", "goalkeeping"], "medium"),
+    "skills": ("Skills & fun", "Lots of touches, dribbling and small games — the best way for young players to improve.", ["technique", "dribbling", "fun-games", "passing"], "medium"),
+    "plan": ("Game plan", "Rehearse how you'll play this week's opponent.", None, "high"),
+    "prep": ("Match prep — light & sharp", "Short, sharp and fresh legs: set pieces, patterns and game situations.", ["set-pieces", "build-up", "game-management", "passing"], "low"),
+    "single": ("Game plan + our weaknesses", "One session to cover the essentials.", None, "high"),
+}
+
+FORMATION_TAGS = {"3-5-2": ["back-three", "wing-backs"], "3-4-3": ["back-three", "wing-backs", "front-three"],
+                  "4-3-3": ["front-three", "midfield-triangle"], "4-2-3-1": ["double-pivot", "number-10"],
+                  "4-4-2": ["two-strikers", "banks-of-four"], "4-1-4-1": ["single-pivot", "compact-block"]}
 
 
 def _parse_days(text: str) -> list[str]:
+    import re
     out = []
-    for part in str(text or "").replace("/", ",").replace("&", ",").replace(" and ", ",").split(","):
-        p = part.strip().lower()[:3]
+    for part in re.split(r"[^A-Za-z]+", str(text or "")):
+        p = part.strip().lower()
+        if len(p) < 2 or p == "and":
+            continue
         for d in DAYS:
-            if p and d.lower().startswith(p) and d not in out:
+            if d.lower().startswith(p[:3]) and d not in out:
                 out.append(d)
-    return sorted(out, key=DAYS.index) or ["Tuesday", "Thursday"]
+    return sorted(out, key=DAYS.index)
 
 
-def weekly_training(plan_tags: list, weakness_tags: list, danger_titles: list, opp_name: str,
-                    training_days: str, match_date: str | None, drills_for) -> dict:
+def _age_years(age_group: str) -> int:
+    g = str(age_group or "")
+    if g.startswith("U") and g[1:].isdigit():
+        return int(g[1:])
+    return 30 if g in ("Senior", "Veterans (35+)", "") else 18
+
+
+def _pick(all_drills, tags, used, youth, salt, k=2):
+    import hashlib
+    scored = []
+    for d in all_drills:
+        if d["id"] in used or (youth and d.get("ages") == "12+"):
+            continue
+        overlap = [t for t in d["tags"] if t in tags]
+        if not overlap:
+            continue
+        score = sum(1 / (1 + tags.index(t)) for t in overlap) + 0.5 * len(overlap)
+        if youth and any(t in d["tags"] for t in ("technique", "fun-games", "dribbling")):
+            score += 0.6
+        # rotate between equally good drills from week to week / opponent to opponent
+        jitter = int(hashlib.md5(f"{salt}:{d['id']}".encode()).hexdigest()[:4], 16) / 65535 * 0.35
+        scored.append((score + jitter, d))
+    scored.sort(key=lambda x: -x[0])
+    return [d for _, d in scored[:k]]
+
+
+def weekly_training(plan_tags: list, weakness_tags: list, danger_titles: list, opp_name: str, club: dict,
+                    match_date: str | None, all_drills: list, formation: str, salt: str) -> dict:
     import datetime as _dt
-    days = _parse_days(training_days)
+    club = club or {}
+    days = _parse_days(club.get("training_days", "")) or ["Tuesday", "Thursday"]
     match_day = None
     if match_date:
         try:
             match_day = DAYS[_dt.date.fromisoformat(match_date).weekday()]
         except ValueError:
             pass
-    extra_tags = (["set-pieces"] if any("set piece" in t.lower() for t in danger_titles) else []) + \
-                 (["wide-play", "defensive-shape"] if any("wing" in t.lower() for t in danger_titles) else [])
-    themes = [
-        ("Fix our weaknesses", "Work on what your results say needs improving.", weakness_tags or ["possession", "fitness"], "high"),
-        (f"Game plan vs {opp_name}", "Rehearse how you'll play this week's opponent.", (plan_tags or []) + extra_tags or ["pressing"], "high"),
-        ("Match prep — light & sharp", "Short, sharp and fresh legs: set pieces and game situations.", ["set-pieces", "game-management"], "low"),
-        ("Fitness & finishing", "Build the engine and sharpen up in front of goal.", ["fitness", "final-third"], "medium"),
-    ]
-    if len(days) == 1:
-        themes = [(f"Game plan vs {opp_name} + our weaknesses", "One session to cover the essentials.",
-                   (plan_tags or [])[:2] + (weakness_tags or [])[:2] + extra_tags[:1], "high")]
+    md = DAYS.index(match_day) if match_day else 5  # assume a Saturday game when no fixture is set
+    days = [d for d in days if d != DAYS[md]] or [DAYS[(md - 2) % 7]]
+    # order sessions as the week builds towards the game: earliest (furthest from the match) first
+    days = sorted(days, key=lambda d: -((md - DAYS.index(d)) % 7))[:5]
+    gap = {d: (md - DAYS.index(d)) % 7 for d in days}
+
+    age = _age_years(club.get("age_group"))
+    youth = age <= 12
+    fmt = str(club.get("match_format") or "11-a-side")
+    small = {"5-a-side": "3v3", "7-a-side": "4v4", "9-a-side": "6v6"}.get(fmt, "8v8")
+    if youth:
+        lengths = {"warmup": 8, "drill": 12, "game": 15, "cool": 5}
+    elif age <= 15:
+        lengths = {"warmup": 10, "drill": 15, "game": 20, "cool": 5}
+    else:
+        lengths = {"warmup": 12, "drill": 18, "game": 22, "cool": 8}
+
+    n = len(days)
+    if n == 1:
+        keys = ["single"]
+    elif n == 2:
+        keys = ["weakness", "plan"]
+    elif n == 3:
+        keys = ["weakness", "plan", "prep"]
+    elif n == 4:
+        keys = ["weakness", "technique", "plan", "prep"]
+    else:
+        keys = ["recovery", "weakness", "technique", "plan", "prep"]
+    if youth:
+        keys = ["skills" if k in ("technique", "recovery") else k for k in keys]
+        if n >= 2 and "skills" not in keys:
+            keys[0] = "skills"
+    # the session the day before the game is always light
+    if n >= 2 and gap[days[-1]] == 1 and keys[-1] != "prep":
+        keys[-1] = "prep" if n >= 3 else keys[-1]
+
+    extra = (["set-pieces"] if any("set piece" in t.lower() for t in danger_titles) else []) + \
+            (["wide-play", "defensive-shape"] if any("wing" in t.lower() for t in danger_titles) else [])
+    form_tags = FORMATION_TAGS.get(formation, [])
     used, sessions = set(), []
-    for i, day in enumerate(days[:4]):
-        title, why, tags, intensity = themes[min(i, len(themes) - 1)] if len(days) > 1 else themes[0]
-        if len(days) == 2 and i == 1:
-            tags = tags + ["set-pieces"]
-        picks = [d for d in drills_for(tags, 8) if d["id"] not in used][:2] or drills_for(tags, 2)
+    for day, key in zip(days, keys):
+        title, why, tags, intensity = THEMES[key]
+        if key == "weakness":
+            tags = (weakness_tags or []) + ["possession", "fitness"]
+        elif key == "plan":
+            tags = (plan_tags or []) + extra + form_tags + ["transition", "build-up"]
+            title = f"Game plan vs {opp_name}"
+        elif key == "single":
+            tags = (plan_tags or [])[:2] + (weakness_tags or [])[:2] + extra[:1] + form_tags[:1]
+            title = f"Game plan vs {opp_name} + our weaknesses"
+        if gap[day] == 1:
+            intensity = "low"
+        picks = _pick(all_drills, tags, used, youth, f"{salt}:{day}")
+        if len(picks) < 2:
+            picks += _pick(all_drills, ["possession", "technique", "final-third", "passing"], used | {d["id"] for d in picks}, youth, salt, 2 - len(picks))
         used.update(d["id"] for d in picks)
-        game_tag = next((t for t in tags if t in CONDITIONED_GAMES), "possession")
         low = intensity == "low"
-        blocks = [{"type": "warmup", "name": "Warm-up", "minutes": 10,
-                   "text": "Jog, mobility and passing in pairs, finishing with a few short sprints." if not low
-                   else "Light jog, mobility and a passing rondo — keep it relaxed."}]
+        game_tag = next((t for t in tags if t in CONDITIONED_GAMES), "possession")
+        blocks = [{"type": "warmup", "name": "Warm-up", "minutes": lengths["warmup"],
+                   "text": ("Fun tag games and ball mastery — everyone with a ball." if youth else
+                            "Light jog, mobility and a relaxed passing rondo." if low else
+                            "Jog, mobility and passing in pairs, finishing with a few short sprints.")}]
         for d in picks:
-            blocks.append({"type": "drill", "name": d["name"], "minutes": min(d["minutes"], 15 if low else 20), "drill": simple_drill(d)})
-        blocks.append({"type": "game", "name": "Conditioned game", "minutes": 15 if low else 20, "text": CONDITIONED_GAMES[game_tag]})
-        blocks.append({"type": "cooldown", "name": "Cool-down & key messages", "minutes": 5,
-                       "text": "Easy jog and stretch. Finish with the 2–3 messages for the weekend."})
+            blocks.append({"type": "drill", "name": d["name"], "minutes": min(d["minutes"], lengths["drill"] - (3 if low else 0)),
+                           "drill": simple_drill(d)})
+        blocks.append({"type": "game", "name": "Conditioned game", "minutes": lengths["game"] - (5 if low else 0),
+                       "text": CONDITIONED_GAMES[game_tag].format(n=small)})
+        blocks.append({"type": "cooldown", "name": "Cool-down & key messages", "minutes": lengths["cool"],
+                       "text": "Easy jog and stretch. Finish with the 2–3 messages for the next game."})
         sessions.append({"day": day, "title": title, "why": why, "intensity": intensity,
-                         "minutes": sum(b["minutes"] for b in blocks), "blocks": blocks})
-    return {"sessions": sessions, "match_day": match_day, "match_date": match_date,
-            "note": "Based on your training days in My Club." if training_days else "Using Tuesday and Thursday — set your training days in My Club."}
+                         "days_before_match": gap[day], "minutes": sum(b["minutes"] for b in blocks), "blocks": blocks})
+    note = "Based on your training days in My Club." if club.get("training_days") else "Using Tuesday and Thursday — set your training days in My Club."
+    if not match_date:
+        note += " No fixture date yet, so we've assumed a weekend game."
+    return {"sessions": sessions, "match_day": DAYS[md], "match_date": match_date, "note": note}

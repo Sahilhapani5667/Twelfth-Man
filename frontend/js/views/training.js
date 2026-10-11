@@ -62,7 +62,7 @@ export async function renderTraining() {
     ]) : null,
     ...week.sessions.map((s, i) => h("section", { class: "coach-card session" }, [
       h("div", { class: "row", style: { justifyContent: "space-between", alignItems: "flex-start" } }, [
-        h("div", {}, [h("p", { class: "eyebrow" }, `Session ${i + 1} · ${s.day}`), h("h2", {}, s.title), h("p", { class: "secondary" }, s.why)]),
+        h("div", {}, [h("p", { class: "eyebrow" }, `Session ${i + 1} · ${s.day}${s.days_before_match ? ` · ${s.days_before_match === 1 ? "day before the match" : s.days_before_match + " days before the match"}` : ""}`), h("h2", {}, s.title), h("p", { class: "secondary" }, s.why)]),
         h("div", { class: "stack", style: { gap: "4px", alignItems: "flex-end" } }, [h("span", { class: "tag" }, `${s.minutes} min`), h("span", { class: `tag int-${s.intensity}` }, INTENSITY[s.intensity])]),
       ]),
       h("ol", { class: "blocks" }, s.blocks.map(block)),
