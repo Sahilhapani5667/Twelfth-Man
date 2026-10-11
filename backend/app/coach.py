@@ -383,7 +383,7 @@ def _pick(all_drills, tags, used, youth, salt, k=2):
         if youth and any(t in d["tags"] for t in ("technique", "fun-games", "dribbling")):
             score += 0.6
         # rotate between equally good drills from week to week / opponent to opponent
-        jitter = int(hashlib.md5(f"{salt}:{d['id']}".encode()).hexdigest()[:4], 16) / 65535 * 0.35
+        jitter = int(hashlib.md5(f"{salt}:{d['id']}".encode()).hexdigest()[:4], 16) / 65535 * 0.9
         scored.append((score + jitter, d))
     scored.sort(key=lambda x: -x[0])
     return [d for _, d in scored[:k]]
@@ -452,7 +452,14 @@ def weekly_training(plan_tags: list, weakness_tags: list, danger_titles: list, o
             title = f"Game plan vs {opp_name} + our weaknesses"
         if gap[day] == 1:
             intensity = "low"
-        picks = _pick(all_drills, tags, used, youth, f"{salt}:{day}")
+        if key in ("plan", "single"):
+            # one drill for the main tactical change, one for the formation / opponent's dangers
+            first = _pick(all_drills, (plan_tags or []) + ["pressing", "transition"], used, youth, f"{salt}:{day}:a", 1)
+            second_tags = extra + form_tags + ["transition", "build-up", "wide-play", "final-third"]
+            second = _pick(all_drills, second_tags, used | {d["id"] for d in first}, youth, f"{salt}:{day}:b", 1)
+            picks = first + second
+        else:
+            picks = _pick(all_drills, tags, used, youth, f"{salt}:{day}")
         if len(picks) < 2:
             picks += _pick(all_drills, ["possession", "technique", "final-third", "passing"], used | {d["id"] for d in picks}, youth, salt, 2 - len(picks))
         used.update(d["id"] for d in picks)
