@@ -2,61 +2,80 @@
 
 **AI-powered football strategy, simulation and development platform for grassroots coaches.**
 
-The Twelfth Man turns pro-level analytics into explainable, practical guidance for local clubs. Load your
-team's basic match stats, pick an opponent, and the platform:
+The Twelfth Man turns professional-level match analytics into a plain-language game plan that a volunteer coach can
+use on a Tuesday night. Pick your next opponent and the platform tells you how hard the game is, how they play, what
+to watch out for, how to set up, what each player's job is, when to make substitutions and what to train this week —
+all built from a match engine trained on 495 professional matches.
 
-- **profiles both teams**: tactical archetype, attack/defence ratings, style comparison, scouting heatmaps and pass networks;
-- **simulates the match**: a minute-by-minute Monte Carlo with fatigue, substitutions, game state and parameter uncertainty, reported as distributions rather than single predictions;
-- **recommends tactical changes**: formation, press height, tempo and width, ranked by a cautious estimate of their benefit, each with key drivers, a confidence level, a "why it helps" note and a drill pack;
-- **exports a match plan**: a printable PDF with lineup, key messages, substitution plan and a training session;
-- **tracks development**: trends over the season, plus a style map placing your club among 76 pro team-seasons.
-
-Coaches see plain football language only. The statistics stay under the hood, in the optional *Analyst tools*.
 It is educational and coaching-oriented. **No betting, odds or gambling outputs.**
+
+---
+
+## What's inside
+
+**For coaches (plain football language, no statistics)**
+- **Season** — fixtures, the league table and scouting notes for every opponent; the app always opens on your next game.
+- **Game Plan** — difficulty of the game, how the opponent plays, what to watch out for, numbered team instructions,
+  where to attack and protect, substitution timing for your match length, and three ways to play it compared in words.
+- **Team Sheet** — a printable page for players: names on the pitch, how we play, each position's job, subs.
+- **Training** — a full week built backwards from match day: recovery, fixing weaknesses, technique, the game plan and a
+  light session the day before. Adapts to age group (shorter "skills & fun" sessions for young players), match format
+  (4v4 / 6v6 / 8v8 games) and formation, using a library of 37 drills with diagrams.
+- **Ask Coach Twelve** — the in-house AI coach: ask anything about the next game ("what if we play 3-5-2?",
+  "we're 1-0 down at half-time", "what are we doing on Thursday?") and get an answer grounded in your data.
+- **Results & Squad / My Club** — enter results after each game, manage the squad and set the club profile
+  (location, league, match rules, training days).
+
+**For analysts**
+- Opponent analysis (heatmaps, pass networks, style comparison), the Tactics Lab (10,000-match simulations with
+  uncertainty bands), recommendations, a full match report, season trends, a style map of 76 professional
+  team-seasons and a *How it works* page with the backtest and every assumption.
+
+**Professional teams** — every Premier League 2015/16, Euro 2024 and World Cup 2022 team is available. Play your
+team against them, or simulate two professional teams against each other and see their real past meetings.
+
+Visitors land straight in a private demo club — no sign-up needed. Coaches can create a free account to save their own team.
 
 ---
 
 ## Quick start
 
-Requires Python 3.11+ (tested on 3.13). No Node or internet needed once the data is built.
+Requires Python 3.11+ (tested on 3.13). No Node needed, and no internet once the data is built.
 
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python scripts/fetch_data.py      # one-off: downloads StatsBomb open data (~1 min, needs internet)
-.venv/bin/python scripts/build_models.py    # builds features, archetypes, effect models, backtest (~10 s)
+.venv/bin/python scripts/build_models.py    # builds features, archetypes, effect models and the backtest (~10 s)
 .venv/bin/python run.py                     # opens http://127.0.0.1:8012
 ```
 
-On first launch, two demo grassroots clubs (Riverside FC and Northgate Athletic, both U18) are loaded from `sample_data/`.
+The processed model files are included in the repository, so the first two steps are only needed to rebuild them.
 
-### Optional: AI-written coaching notes
+### Optional: Coach Twelve
 
-Set an Anthropic API key and the recommendations and match plans gain plain-language coaching notes written by
-a large language model. The AI receives only the model's numbers and is told never to invent statistics.
+Ask Coach Twelve uses the Anthropic API. Create a `.env` file in the project folder:
 
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
-.venv/bin/python run.py
+```
+ANTHROPIC_API_KEY=your-api-key
+TWELFTH_MAN_MODEL=model-id-from-your-anthropic-console
 ```
 
-Without a key, everything still works and the notes come from built-in templates. The sidebar shows which mode is active.
+Without these, everything still works: Coach Twelve runs in offline mode and answers common questions straight from
+the game plan. It is the only feature that uses the API; game plans, recommendations and reports are always free.
 
 ---
 
-## Fair demo script (3–5 minutes)
+## Demo script (3–5 minutes)
 
-**Coach mode (what a grassroots coach uses every week, no statistics):**
-1. **Game Plan**: pick *Riverside FC* (local data) vs *Leicester City 2015/16*. Read out the verdict ("Even game"),
-   how they play, what to watch out for, and *our plan* as numbered instructions with the attack/protect pitch.
-2. **Other ways to play it**: compare the options in plain words ("✓ Creates more chances", "! More tiring")
-   and click **Use this plan**.
-3. **Team Sheet**: print the one-page sheet for players (names on the pitch, team instructions, each position's job, subs).
-4. **Training**: this week's focus areas and three drills with diagrams.
-5. **My Team**: add last weekend's result in under a minute; the plan updates.
-
-**Analyst tools (for judges who want the maths):** the Tactics Lab Monte Carlo with distributions, opponent heatmaps and
-pass networks, the style map, and *How it works* (backtest log-loss 1.00 vs 1.08 baseline, calibration, effect sizes).
+1. **Game Plan** — the demo club (Riverside FC U18) vs its next opponent. Read the verdict, how they play, what to
+   watch out for and the numbered instructions with the attack/protect pitch.
+2. **Other ways to play it** — compare the three options in plain words and click **Use this plan**.
+3. **Team Sheet** and **Training** — the printable sheet for players and the week of sessions leading to Saturday.
+4. **Try it against the pros** — Riverside vs Spain: *"Very, very difficult"*. Then Arsenal vs Leicester with their
+   two real 2015/16 meetings.
+5. **Ask Coach Twelve** — "What if we switch to 3-5-2?" (it tests the idea with the match engine before answering).
+6. **Analyst tools** — the Tactics Lab simulation and *How it works* (backtest log-loss 1.00 vs 1.08 baseline).
 
 ---
 
@@ -65,52 +84,61 @@ pass networks, the style map, and *How it works* (backtest log-loss 1.00 vs 1.08
 ```
 StatsBomb open events (495 matches: PL 2015/16, Euro 2024, WC 2022)
    └─ per-match team features: possession, pass completion, press height, directness, width, PPDA, field tilt,
-      xG/xGA, set-piece & counter xG, heatmaps, positional pass networks          (backend/app/etl/statsbomb.py)
-   └─ K-means archetypes (5) on standardised style features, named by prototype matching
-   └─ xG-based attack/defence ratings, shrunk toward league average
-   └─ Poisson outcome model + fitted draw adjustment, rolling-origin backtest
-   └─ within-team (fixed-effects) ridge regressions: tactic levers → xG / xGA, with matchup interactions,
-      cluster-bootstrap 90% intervals; formation effects shrunk + bootstrapped     (backend/app/analytics.py)
-Your club's CSV / form input → same feature space (ratings relative to your own league, xG estimated from shots)
-   └─ engine: minute-by-minute Monte Carlo (fatigue, subs, game state, weather priors, parameter uncertainty);
-      recommendation search over formation × press × tempo × width, ranked by 10th-percentile xPts gain   (backend/app/engine.py)
-   └─ the AI (optional) writes coaching notes from the numbers only                 (backend/app/explain.py)
+      xG / xGA, set-piece and counter xG, heatmaps, positional pass networks        (backend/app/etl/statsbomb.py)
+   └─ K-means style archetypes, xG-based attack/defence ratings shrunk toward the league average
+   └─ Poisson outcome model with a fitted draw adjustment and a rolling-origin backtest
+   └─ within-team ridge regressions: tactic levers → xG / xGA, with matchup interactions and
+      cluster-bootstrap intervals; formation effects shrunk and bootstrapped        (backend/app/analytics.py)
+Club data (results, league table, scouting) → the same feature space, rated relative to the club's own league
+   └─ match engine: minute-by-minute Monte Carlo (fatigue for both teams, subs, game state, weather, uncertainty),
+      a playing-level gap between grassroots and professional football, head-to-heads,
+      recommendations ranked by a cautious (10th-percentile) expected-points gain     (backend/app/engine.py)
+   └─ coach mode: plain-language plans, team sheets and weekly training             (backend/app/coach.py)
+   └─ Coach Twelve: answers from the plan and records, tests ideas with the engine   (backend/app/assistant.py)
 ```
 
-**Honesty measures** (see the Model Card page):
-- Observational tactic effects are confounded by game state (teams that are on top defend higher, for example), so the engine **halves** them and adds an **adaptation cost** for big changes from a team's identity or an unfamiliar formation.
-- Recommendations must stay positive at the **10th percentile** of the bootstrap distribution, and each one is driven by a different lever.
-- Fatigue, substitution, game-state and weather effects are **coaching priors**, not fitted from data; they are listed in `engine.PRIORS`.
+**Honesty measures** (see *How it works* in the app):
+- Observational tactic effects are confounded by game state, so the engine halves them and adds an adaptation cost for
+  big changes from a team's usual style or an unfamiliar formation.
+- Recommendations must stay positive at the 10th percentile of the bootstrap distribution.
+- Fatigue, substitution, game-state, weather and playing-level effects are coaching assumptions, not fitted from data;
+  they are listed on the *How it works* page.
+- Coach Twelve is told to use only the numbers the models produce and never to invent statistics.
 
 ## Project layout
 
 ```
 backend/app/
-  etl/statsbomb.py   download + summarise StatsBomb matches
-  analytics.py       features, archetypes, effect models, backtest, team profiles
-  formations.py      formation families and slot layouts
-  engine.py          simulation, recommendations, matchup analysis, local-team profiles
-  store.py           SQLite storage + CSV validation for local club data
-  explain.py         AI explanations (with template fallback)
-  main.py            FastAPI app (API under /api, web app at /)
-  content/drills.json  drill library (23 drills with diagrams)
-frontend/            no-build ES-module web app (vanilla JS + hand-drawn SVG charts)
-scripts/             fetch_data.py, build_models.py, jscheck.sh (JS syntax check without Node)
-sample_data/         demo club CSVs (also a template for coaches)
-data/                cache/ (match summaries), processed/ (model + team JSON), local.db (your club data)
+  etl/statsbomb.py     download and summarise StatsBomb matches
+  analytics.py         features, archetypes, effect models, backtest, team profiles
+  engine.py            simulation, recommendations, matchup analysis, club and opponent profiles
+  coach.py             plain-language game plans, team sheets and weekly training
+  assistant.py         Coach Twelve question answering and tools
+  accounts.py          accounts, demo sessions, club profiles, fixtures, opponents, league tables
+  store.py             SQLite storage and CSV validation for club match data
+  client.py, usage.py  Anthropic API connection and cost logging
+  main.py              FastAPI app (API under /api, web app at /)
+  content/drills.json  drill library (37 drills with diagrams)
+frontend/              no-build web app (vanilla JavaScript ES modules, hand-drawn SVG charts)
+scripts/               fetch_data.py, build_models.py, jscheck.sh (JavaScript syntax check without Node)
+sample_data/           demo club results and league table (also a template for coaches)
+data/                  processed/ (model and team files); local.db holds club data and stays on your machine
 ```
 
 ## Club data format
 
-Download the template from **Club Data → Template CSV**. Required columns: `date, opponent, formation, goals_for, goals_against, shots_for, shots_against`.
-Optional columns that improve the estimates: `venue, sot_for, sot_against, possession, passes_attempted, passes_completed,
-press_rating, directness_rating, width_rating (1–5), corners_for, late_goals_against, notes`.
-Local data is stored only on this computer, in `data/local.db`.
+Download the template from **Results & Squad → Template CSV**. Required columns:
+`date, opponent, formation, goals_for, goals_against, shots_for, shots_against`.
+Optional columns that improve the estimates: `venue, sot_for, sot_against, possession, passes_attempted,
+passes_completed, press_rating, directness_rating, width_rating (1–5), corners_for, late_goals_against, notes`.
+
+League tables can be pasted straight from a league website: one team per line with position, name, played, won,
+drawn, lost, goals for and goals against.
 
 ## Roadmap
 
-- **Phase 4:** team development: longer-term progression dashboards and session planning.
-- **Phase 5:** player development: similarity to pro players, role-fit scores, workload guidance.
-- **Stretch:** reinforcement-learning in-game coach; computer vision for team shape from training video.
+- **Player development:** similarity to professional players, role-fit scores and workload guidance.
+- **Data import:** pull fixtures and league tables directly from league websites (with their permission).
+- **Stretch:** an in-game coach that adapts to the score, and team shape from training video.
 
 Data: [StatsBomb Open Data](https://github.com/statsbomb/open-data), used under its open-data licence terms.
