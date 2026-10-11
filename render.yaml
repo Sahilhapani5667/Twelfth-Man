@@ -1,0 +1,20 @@
+# Render deployment (https://render.com): New > Blueprint > pick this repository.
+services:
+  - type: web
+    name: twelfth-man
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips "*"
+    healthCheckPath: /api/meta
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.7
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: TWELFTH_MAN_MODEL
+        sync: false
+      - key: TWELFTH_MAN_ASK_PER_DAY
+        value: "8"
+      - key: TWELFTH_MAN_DAILY_BUDGET
+        value: "1.00"

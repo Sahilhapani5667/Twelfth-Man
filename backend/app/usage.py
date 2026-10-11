@@ -28,6 +28,20 @@ def record(resp, kind: str) -> float:
     return cost
 
 
+def spent_today() -> float:
+    """Spend since midnight UTC, for the daily budget."""
+    if not LOG.exists():
+        return 0.0
+    start = time.time() - time.time() % 86400
+    out = 0.0
+    for line in LOG.read_text().splitlines():
+        if line.strip():
+            row = json.loads(line)
+            if row.get("t", 0) >= start:
+                out += row["cost"]
+    return out
+
+
 def total() -> float:
     if not LOG.exists():
         return 0.0

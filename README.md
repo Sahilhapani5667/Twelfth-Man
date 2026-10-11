@@ -64,6 +64,15 @@ TWELFTH_MAN_MODEL=model-id-from-your-anthropic-console
 Without these, everything still works: Coach Twelve runs in offline mode and answers common questions straight from
 the game plan. It is the only feature that uses the API; game plans, recommendations and reports are always free.
 
+### Deploy online
+
+The repository includes a `render.yaml` for [Render](https://render.com): create a free account, choose
+**New → Blueprint**, pick this repository and enter `ANTHROPIC_API_KEY` and `TWELFTH_MAN_MODEL` when asked.
+Coach Twelve is protected on a public site by a per-visitor daily limit (`TWELFTH_MAN_ASK_PER_DAY`, default 8) and a
+daily budget for the whole site (`TWELFTH_MAN_DAILY_BUDGET`, default $1.00); after that it answers from the game plan.
+On the free plan the site sleeps when idle (the first visit then takes about a minute) and club data is reset when
+the service restarts; the demo club is recreated for every visitor.
+
 ---
 
 ## Demo script (3–5 minutes)

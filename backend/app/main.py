@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from pathlib import Path
 
 import numpy as np
@@ -11,9 +12,9 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTex
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import coach
+from . import coach, usage
 from .accounts import Accounts, AuthError, parse_league_table
-from .assistant import Assistant
+from .assistant import Assistant, offline_answer
 from .engine import Engine
 from .client import CoachClient
 from .formations import FAMILIES
@@ -300,14 +301,37 @@ class AskRequest(BaseModel):
     tactics: Tactics | None = None
 
 
+# Spending guards for a public site: questions per visitor per day, and a daily budget for the whole site.
+def _env_number(name: str, default: float, kind=float):
+    try:
+        return kind(os.environ.get(name, default))
+    except ValueError:
+        return kind(default)
+
+
+ASK_PER_DAY = _env_number("TWELFTH_MAN_ASK_PER_DAY", 8, int)
+DAILY_BUDGET = _env_number("TWELFTH_MAN_DAILY_BUDGET", 1.00)
+_asked: dict[tuple[str, int], int] = {}
+
+
 @app.post("/api/ask")
 def ask(req: AskRequest, request: Request):
-    """Ask the Coach: answers grounded in this match's game plan and the simulation engine."""
+    """Ask Coach Twelve: answers grounded in this match's game plan and the match engine."""
     _check(req.team_id, req.opponent_id, request)
     chosen = _tactics(req.tactics) if req.tactics else None
     plan = coach.game_plan(engine, req.team_id, req.opponent_id, req.venue, _drills_for, chosen, DRILLS)
+    uid = _user(request)["id"]
+    day = int(time.time() // 86400)
+    if conn.enabled:
+        if _asked.get((uid, day), 0) >= ASK_PER_DAY:
+            return {"answer": offline_answer(req.question, plan), "source": "offline",
+                    "note": f"You've used today's {ASK_PER_DAY} full answers, so this one comes from the game plan. Full answers are back tomorrow."}
+        if usage.spent_today() >= DAILY_BUDGET:
+            return {"answer": offline_answer(req.question, plan), "source": "offline",
+                    "note": "Coach Twelve has answered a lot of questions today, so this answer comes from the game plan. Full answers are back tomorrow."}
+        _asked[(uid, day)] = _asked.get((uid, day), 0) + 1
     return assistant.ask(engine, req.team_id, req.opponent_id, req.venue, req.question.strip(), req.history, plan,
-                         viewer_id=_user(request)["id"])
+                         viewer_id=uid)
 
 
 @app.get("/api/drills")
@@ -414,25 +438,40 @@ class LoginRequest(BaseModel):
     password: str = Field(..., max_length=200)
 
 
-def _session_response(user: dict) -> NumpyJSON:
+def _is_https(request: Request | None) -> bool:
+    if request is None:
+        return False
+    return request.url.scheme == "https" or request.headers.get("x-forwarded-proto", "") == "https"
+
+
+def _session_response(user: dict, request: Request | None = None) -> NumpyJSON:
     resp = NumpyJSON({"user": user, "club": accounts.club(user["id"])})
     resp.set_cookie(COOKIE, accounts.new_session(user["id"]), httponly=True, samesite="lax",
-                    max_age=30 * 86400, path="/")
+                    secure=_is_https(request), max_age=30 * 86400, path="/")
     return resp
 
 
+_guest_starts: dict[str, list[float]] = {}
+GUESTS_PER_HOUR = _env_number("TWELFTH_MAN_GUESTS_PER_HOUR", 20, int)
+
+
+def _client_ip(request: Request) -> str:
+    fwd = request.headers.get("x-forwarded-for", "")
+    return fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown")
+
+
 @app.post("/api/auth/signup")
-def signup(req: SignupRequest):
+def signup(req: SignupRequest, request: Request):
     try:
-        return _session_response(accounts.signup(req.email, req.name, req.password))
+        return _session_response(accounts.signup(req.email, req.name, req.password), request)
     except AuthError as e:
         raise HTTPException(422, str(e))
 
 
 @app.post("/api/auth/login")
-def login(req: LoginRequest):
+def login(req: LoginRequest, request: Request):
     try:
-        return _session_response(accounts.login(req.email, req.password))
+        return _session_response(accounts.login(req.email, req.password), request)
     except AuthError as e:
         raise HTTPException(401, str(e))
 
@@ -440,11 +479,17 @@ def login(req: LoginRequest):
 @app.post("/api/auth/guest")
 def guest(request: Request):
     """Start a demo session instantly: a private guest account pre-filled with the demo club."""
+    ip = _client_ip(request)
+    now = time.time()
+    recent = [t for t in _guest_starts.get(ip, []) if now - t < 3600]
+    if len(recent) >= GUESTS_PER_HOUR:
+        raise HTTPException(429, "Too many demo sessions from this connection. Please try again later.")
+    _guest_starts[ip] = recent + [now]
     u = accounts.create_guest()
     u["guest"] = True
     request.state.user = u
     load_demo(request)
-    return _session_response(u)
+    return _session_response(u, request)
 
 
 @app.post("/api/auth/logout")
