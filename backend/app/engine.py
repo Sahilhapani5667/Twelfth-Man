@@ -55,7 +55,7 @@ THREE_CENTRAL = {"4-3-3", "4-1-4-1", "4-2-3-1", "3-5-2"}
 # Playing level, in log goal-rate units relative to professional / international football.
 # Ratings are relative to each team's own league, so without this a grassroots side and a
 # professional side would look equally strong. Coaching priors, listed on the Model Card.
-LEVEL_TIER = {"Academy": -0.9, "Semi-pro": -1.0, "College / University": -1.5, "Sunday league": -1.9,
+LEVEL_TIER = {"Academy": -1.2, "Semi-pro": -1.4, "College / University": -1.5, "Sunday league": -1.9,
               "Grassroots": -1.8, "School": -2.0, "": -1.8}
 AGE_TIER = {"U7": -1.8, "U8": -1.8, "U9": -1.8, "U10": -1.6, "U11": -1.5, "U12": -1.3, "U13": -1.0, "U14": -0.9,
             "U15": -0.8, "U16": -0.5, "U17": -0.4, "U18": -0.3, "U19": -0.3, "U21": -0.1, "U23": -0.1,
@@ -544,9 +544,11 @@ class Engine:
     def evaluate(self, us, opp, tactics, venue, conditions) -> dict:
         r = self.rates(us, opp, tactics, venue, conditions)
         ff, fa = self._avg_fatigue(tactics, conditions)
-        xp, p = self._xpts(r["lam_for"] * ff, r["lam_against"] * fa)
-        return {"xpts": xp, "p": p, "xg_for": r["lam_for"] * ff, "xg_against": r["lam_against"] * fa,
-                "contrib": r["contrib"]}
+        # the opponent tires from its own pressing too
+        off, ofa = self._avg_fatigue(self.default_tactics(opp), conditions)
+        lam_f, lam_a = r["lam_for"] * ff * ofa, r["lam_against"] * fa * off
+        xp, p = self._xpts(lam_f, lam_a)
+        return {"xpts": xp, "p": p, "xg_for": lam_f, "xg_against": lam_a, "contrib": r["contrib"]}
 
     def recommend(self, team_id: str, opponent_id: str, tactics: dict | None = None, venue: str = "home",
                   conditions: str = "normal", top_k: int = 3) -> dict:
