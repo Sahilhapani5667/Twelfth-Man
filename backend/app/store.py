@@ -211,13 +211,14 @@ class Store:
         team = self.get_team(team_id)
         if not team:
             return None
+        with self._conn() as c:
+            r = c.execute("SELECT owner_id FROM local_teams WHERE id = ?", (team_id,)).fetchone()
+        base = self.league_base(owner_id=r["owner_id"] if r else None)
         ms = self.matches(team_id)
         if not ms:
             from .engine import blank_local_profile
-            return blank_local_profile(team, engine, self.league_base())
-        with self._conn() as c:
-            r = c.execute("SELECT owner_id FROM local_teams WHERE id = ?", (team_id,)).fetchone()
-        return local_profile_from_matches(team, ms, engine, self.league_base(owner_id=r["owner_id"] if r else None))
+            return blank_local_profile(team, engine, base)
+        return local_profile_from_matches(team, ms, engine, base)
 
 
 def template_csv() -> str:

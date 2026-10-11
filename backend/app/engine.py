@@ -737,12 +737,15 @@ class Engine:
 
     # ------------------------------------------------------------ archetype map
 
-    def archetype_map(self) -> dict:
+    def archetype_map(self, user: dict | None = None) -> dict:
         arch = self.arch
         mu, sd = np.array(arch["mean"]), np.array(arch["std"])
         teams = list(self.pro.values())
         local = []
+        owned = self.accounts.team_ids(user["id"]) if (user and self.accounts) else set()
         for lt in self.store.list_teams():
+            if lt["id"] not in owned:  # only the signed-in coach's own club
+                continue
             try:
                 local.append(self.team(lt["id"]))
             except KeyError:
@@ -830,7 +833,7 @@ def local_profile_from_matches(team: dict, matches: list[dict], engine: "Engine"
     formation = Counter(family_of(m.get("formation")) for m in matches).most_common(1)[0][0]
     total_ga = sum(m["goals_against"] for m in matches)
     return {
-        "id": team["id"], "name": team["name"], "label": f"{team['name']} · {team.get('level') or 'Local'}",
+        "id": team["id"], "name": team["name"], "label": team["name"] if (not team.get("level") or team["level"] in team["name"]) else f"{team['name']} · {team['level']}",
         "source": "local", "competition": "Your club data", "level": team.get("level"),
         "matches": n, "formation": formation, "league_base": league_base,
         "formations_used": dict(Counter(family_of(m.get("formation")) for m in matches)),

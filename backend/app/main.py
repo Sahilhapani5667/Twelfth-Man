@@ -321,8 +321,8 @@ def model_card():
 
 
 @app.get("/api/archetype-map")
-def archetype_map():
-    return engine.archetype_map()
+def archetype_map(request: Request):
+    return engine.archetype_map(_user(request))
 
 
 # ---- local club data
