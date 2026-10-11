@@ -97,24 +97,29 @@ export async function renderGameplan() {
     h("h2", {}, "Past meetings"), h("p", { class: "secondary" }, "These two teams never met in the matches we have (Premier League 2015/16, Euro 2024, World Cup 2022), so this is a pure simulation."),
   ]) : null);
 
+  const proLink = viewingPros ? null : h("p", { class: "pro-link" }, [
+    "New: test your team against Euro 2024, World Cup 2022 and Premier League sides, or watch two pros — ",
+    h("a", { href: "#", onclick: (e) => { e.preventDefault(); document.getElementById("pro-cards").scrollIntoView({ behavior: "smooth" }); } }, "see options ↓"),
+  ]);
+
   return h("div", { class: "coach" }, [
     backBar,
-    viewingPros ? null : (isPro(state.oppId) ? null : proHint),
-    viewingPros ? null : inspo,
+    proLink,
     h("div", { class: "coach-head" }, [
-      h("p", { class: "eyebrow" }, `Next game · ${state.venue === "away" ? "Away" : state.venue === "neutral" ? "Neutral ground" : "Home"}`),
+      h("p", { class: "eyebrow" }, `${viewingPros ? "Simulated match" : "Next game"} · ${state.venue === "away" ? "Away" : state.venue === "neutral" ? "Neutral ground" : "Home"}`),
       h("h1", {}, `${g.team.name} vs ${g.opponent.name}`),
       h("div", { class: "verdict-pill", style: { borderColor: TONE[g.difficulty.tone] } }, [
         h("span", { class: "dot", style: { background: TONE[g.difficulty.tone] } }), g.difficulty.label,
       ]),
       h("p", { class: "lead" }, g.difficulty.text),
+      g.both_pro ? h("p", { class: "sub" }, "Both teams are shown playing their usual way, so it doesn't matter which side you pick as \"my team\".") : null,
     ]),
 
     pastCard,
     h("section", { class: "coach-card" }, [
       h("h2", {}, "How they play"),
       h("p", { class: "big-line" }, g.opponent.style),
-      h("p", { class: "secondary" }, `They usually line up in a ${g.opponent.formation}.`),
+      g.opponent.formation ? h("p", { class: "secondary" }, `They usually line up in a ${g.opponent.formation}.`) : null,
       h("h3", { style: { marginTop: "18px" } }, "Watch out for"),
       h("ul", { class: "plain-list" }, g.dangers.map((d) => h("li", {}, [h("strong", {}, d.title), h("span", {}, d.text)]))),
     ]),
@@ -143,5 +148,6 @@ export async function renderGameplan() {
       h("button", { class: "btn", onclick: () => go("training") }, "This week's training"),
     ]),
     deeper,
+    h("div", { id: "pro-cards", class: "stack", style: { gap: "16px" } }, [viewingPros ? null : (isPro(state.oppId) ? null : proHint), viewingPros ? null : inspo]),
   ]);
 }

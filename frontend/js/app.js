@@ -94,14 +94,14 @@ export async function reloadTeams() {
 
 async function boot() {
   const res = await fetch("/api/auth/me");
-  if (res.status === 401) {
+  const me = await res.json();
+  if (!me.user) {
     // No sign-in wall: every visitor gets a private demo club instantly.
     view.replaceChildren(h("div", { class: "card empty" }, "Setting up your demo club…"));
     const g = await fetch("/api/auth/guest", { method: "POST" });
     if (g.ok) { location.hash = "#/plan"; location.reload(); return; }
     throw new Error("Could not start a demo session.");
   }
-  const me = await res.json();
   state.user = me.user;
   state.club = me.club;
   if (!me.club) {
@@ -159,6 +159,16 @@ async function init() {
   document.getElementById("opp-select").addEventListener("change", (e) => { state.oppId = e.target.value; save(); renderPickers(); render(); });
   document.querySelectorAll("#venue-seg button").forEach((b) => b.addEventListener("click", () => { state.venue = b.dataset.v; save(); renderPickers(); render(); }));
   window.addEventListener("hashchange", render);
+  // phone menu: open/close, and close after picking a page
+  const toggle = document.getElementById("menu-toggle");
+  const sidebar = document.querySelector(".sidebar");
+  toggle.addEventListener("click", () => {
+    const open = sidebar.classList.toggle("menu-open");
+    toggle.setAttribute("aria-expanded", open);
+  });
+  document.getElementById("nav").addEventListener("click", (e) => {
+    if (e.target.closest("a")) { sidebar.classList.remove("menu-open"); toggle.setAttribute("aria-expanded", "false"); }
+  });
   render();
 }
 
