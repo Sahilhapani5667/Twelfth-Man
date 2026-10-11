@@ -351,10 +351,20 @@ export async function renderModel() {
   return h("div", { class: "stack", style: { gap: "16px" } }, [
     h("div", { class: "page-head" }, [
       h("div", {}, [
-        h("h1", {}, "Model Card"),
-        h("p", {}, "How The Twelfth Man turns open match data into tactical scenarios: what is fitted from data, what is assumed, how well it holds up, and where it can mislead. Educational scenario planning — not a betting or prediction service."),
+        h("h1", {}, "How it works"),
+        h("p", {}, "How The Twelfth Man builds your game plan, how well it holds up, and where it can mislead. Educational planning — not a betting or prediction service."),
       ]),
       meta.built_at ? h("span", { class: "pill" }, `Models built ${meta.built_at}`) : null,
+    ]),
+    h("section", { class: "coach-card" }, [
+      h("h2", {}, "In plain words"),
+      h("ol", { class: "plain-list numbered" }, [
+        ["We learned from real football", "The match engine studied 495 professional matches (Premier League 2015/16, Euro 2024, World Cup 2022): how teams press, pass and attack, and what that does to the chances they create and concede."],
+        ["We rate your team from your results", "Your results, shots and style ratings place your team on the same scale, compared with the other teams in your own league."],
+        ["We play the game thousands of times", "For any set-up, the engine simulates the match minute by minute — including tiredness, substitutions and the score — to see how often each way of playing works."],
+        ["We turn it into a plan", "The best options become plain instructions, a team sheet and a training week. Coach Twelve, our in-house AI coach, answers questions using the same numbers."],
+      ].map(([t, d]) => h("li", {}, [h("strong", {}, t), h("span", {}, d)]))),
+      h("p", { class: "sub" }, "Below: how accurate it is, its limits, and the full technical detail for anyone who wants it."),
     ]),
     h("div", { class: "grid g2" }, backtestCards(card.backtest)),
     limitationsCard(card, status),

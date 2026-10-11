@@ -41,7 +41,7 @@ const SECTIONS = [
   ["Facilities & training", "Helps tailor plans and sessions", [
     ["pitch_surface", "Home pitch surface", "select", { options: ["", "Grass", "3G / artificial", "Astro (sand-based)", "Indoor"] }],
     ["pitch_size", "Pitch size", "select", { options: ["", "Small", "Standard", "Large"] }],
-    ["training_days", "Training days", "text", { placeholder: "e.g. Tuesday, Thursday" }],
+    ["training_days", "Training days", "days", { wide: true }],
     ["squad_size", "Squad size", "number", { placeholder: "e.g. 18" }],
   ]],
 ];
@@ -51,6 +51,23 @@ export async function renderClub({ onboarding = false } = {}) {
   const inputs = {};
   const field = ([key, label, type, opt]) => {
     let input;
+    if (type === "days") {
+      const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+      const picked = new Set(DAYS.filter((d) => String(club[key] || "").toLowerCase().includes(d.slice(0, 3).toLowerCase())));
+      input = h("input", { type: "hidden", name: key, value: DAYS.filter((d) => picked.has(d)).join(", ") });
+      const chips = h("div", { class: "row day-chips", role: "group", "aria-label": label }, DAYS.map((d) => {
+        const b = h("button", { type: "button", class: `chip ${picked.has(d) ? "on" : ""}`, "aria-pressed": picked.has(d) ? "true" : "false" }, d.slice(0, 3));
+        b.addEventListener("click", () => {
+          picked.has(d) ? picked.delete(d) : picked.add(d);
+          b.classList.toggle("on", picked.has(d));
+          b.setAttribute("aria-pressed", picked.has(d) ? "true" : "false");
+          input.value = DAYS.filter((x) => picked.has(x)).join(", ");
+        });
+        return b;
+      }));
+      inputs[key] = input;
+      return h("div", { class: "field", style: { gridColumn: "1 / -1" } }, [h("span", {}, label + " — tap the days you train"), chips, input]);
+    }
     if (type === "select") {
       input = h("select", { name: key }, opt.options.map((o) => h("option", { value: o, selected: (club[key] || "") === o }, o ? (opt.labels?.[o] || o) : "Choose…")));
     } else {
