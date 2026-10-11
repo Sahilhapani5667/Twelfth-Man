@@ -33,7 +33,8 @@ statistics, players, results or past meetings. If something isn't there, say so 
 in our_club_profile — use it: e.g. subs advice must respect max_subs and rolling/fixed subs; timings must scale to half_length.
 - Don't attribute statements to the coach that they didn't make. Don't assume dates, match days or kick-off times.
 - For form, runs and streaks, use the pre-computed form_facts — never count results yourself.
-- Only say a drill is "in your plan" if it is in game_plan.drills; drills from find_drills are "from the drill library".
+- This week's training schedule is in game_plan.this_weeks_training — use it for questions about sessions and days.
+  Only say a drill is "in this week's plan" if it appears there; drills from find_drills are "from the drill library".
 - "What if we..." about formation, pressing, tempo/directness or width → call try_tactics first and answer from its result.
 - Any question with a score and/or minute (half-time, "we're 1-0 down", "2-0 up with 20 left") → call game_situation \
 first and answer from its result. You may combine it with try_tactics.
@@ -146,14 +147,15 @@ def form_facts(trend: list) -> dict:
             "clean_sheets_last5": sum(1 for m in l5 if m["ga"] == 0)}
 
 
-def context_for(plan: dict, engine, team_id, opponent_id) -> dict:
+def context_for(plan: dict, engine, team_id, opponent_id, viewer_id: str | None = None) -> dict:
     us, opp = engine.team(team_id), engine.team(opponent_id)
 
     def team_facts(t):
         r = t.get("record") or {}
         return {"name": t["label"], "source": "your club's own match records" if t.get("source") == "local" else t.get("competition"),
                 "matches_on_record": t.get("matches"), "record_won_drawn_lost": f"{r.get('W')}-{r.get('D')}-{r.get('L')}",
-                "goals_for_against": f"{r.get('gf')}-{r.get('ga')}", "usual_formation": t.get("formation"),
+                "goals_for_against": f"{r.get('gf')}-{r.get('ga')}",
+                "usual_formation": t.get("formation") if not (t.get("source") == "scouted" and not (t.get("scouting") or {}).get("formation")) else "unknown (not scouted)",
                 "style": t["archetype"]["name"], "style_in_words": coach.PLAIN_STYLE.get(t["archetype"]["name"], ""),
                 "creates_chances_vs_average": round(t["rating"]["attack"], 2), "concedes_chances_vs_average": round(t["rating"]["defence"], 2),
                 "recent_results_oldest_first": [f"{m.get('date')} vs {m.get('opp')}: {m.get('gf')}-{m.get('ga')}" for m in (t.get("trend") or [])[-5:]],
@@ -161,8 +163,8 @@ def context_for(plan: dict, engine, team_id, opponent_id) -> dict:
                 "squad": [f"{p.get('number', '')} {p['name']} ({p.get('position', '')})" for p in (t.get("roster") or [])]}
     club_info, next_fixture = {}, None
     acc = getattr(engine, "accounts", None)
-    owner = acc.owner_of(team_id) if acc else None
-    if owner:
+    owner = (acc.owner_of(team_id) if acc else None) or viewer_id
+    if owner and acc:
         club = acc.club(owner) or {}
         club_info = {k: v for k, v in club.items() if k not in ("team_id", "table") and v not in (None, "")}
         if club.get("table"):
@@ -185,7 +187,11 @@ def context_for(plan: dict, engine, team_id, opponent_id) -> dict:
         "how_hard": plan["difficulty"], "opponent_style": plan["opponent"]["style"], "dangers": plan["dangers"],
         "plan": {k: plan["plan"][k] for k in ("summary", "change_title", "instructions", "roles", "subs")},
         "options_considered": [{"name": o["name"], "summary": o["summary"], "effects": [v["text"] for v in o["verdicts"]]} for o in plan["options"]],
-        "training_focus": plan["focus"], "drills": [{"name": d["name"], "why": d["why"], "minutes": d["minutes"]} for d in plan["drills"]],
+        "training_focus": plan["focus"],
+        "this_weeks_training": [{"day": x["day"], "session": x["title"], "minutes": x["minutes"], "intensity": x["intensity"],
+                                 "days_before_match": x.get("days_before_match"),
+                                 "blocks": [b["name"] for b in x["blocks"]]} for x in plan["week"]["sessions"]],
+        "match_day": plan["week"].get("match_day"),
     }}
 
 
@@ -198,12 +204,12 @@ class Assistant:
     def enabled(self):
         return self.conn.enabled
 
-    def ask(self, engine, team_id, opponent_id, venue, question: str, history: list[dict], plan: dict) -> dict:
+    def ask(self, engine, team_id, opponent_id, venue, question: str, history: list[dict], plan: dict, viewer_id: str | None = None) -> dict:
         if not self.conn.enabled:
             return {"answer": offline_answer(question, plan), "source": "offline"}
         a = self.conn.sdk
         client = self.conn.client
-        ctx = context_for(plan, engine, team_id, opponent_id)
+        ctx = context_for(plan, engine, team_id, opponent_id, viewer_id)
         system = SYSTEM + "\n\nMATCH CONTEXT (JSON):\n" + json.dumps(ctx, default=str)
         messages = [{"role": m["role"], "content": m["content"]} for m in history[-10:]
                     if m.get("role") in ("user", "assistant") and isinstance(m.get("content"), str) and m["content"].strip()]
