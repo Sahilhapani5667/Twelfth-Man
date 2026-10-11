@@ -188,9 +188,9 @@ function teamBar(ctx) {
     ]),
     chips.length ? h("div", { class: "row", role: "group", "aria-label": "Local teams" }, chips) : null,
     chips.length ? h("div", { class: "divider", style: { margin: "2px 0" } }) : null,
-    h("span", { class: "sub" }, "New team"),
-    form,
-    status,
+    ctx.teams.length
+      ? h("details", { class: "more" }, [h("summary", {}, [h("span", { class: "more-title" }, "Add another team"), h("span", { class: "more-hint" }, "e.g. a second age group")]), h("div", { class: "more-body" }, [form, status])])
+      : h("div", { class: "stack" }, [h("span", { class: "sub" }, "New team"), form, status]),
   ]);
 }
 

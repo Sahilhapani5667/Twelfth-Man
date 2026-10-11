@@ -52,7 +52,7 @@ export async function renderSheet() {
     h("div", { class: "row no-print" }, [
       h("button", { class: "btn primary", onclick: () => window.print() }, "Print / save as PDF"),
       h("button", { class: "btn", onclick: () => go("plan") }, "← Back to game plan"),
-      g.team.roster.length ? null : h("span", { class: "sub" }, "Tip: add your squad in My Team to put names on the pitch."),
+      g.team.roster.length ? null : h("span", { class: "sub" }, "Tip: add your squad in Results & Squad to put names on the pitch."),
     ]),
     sheet,
   ]);

@@ -99,7 +99,7 @@ async function boot() {
     // No sign-in wall: every visitor gets a private demo club instantly.
     view.replaceChildren(h("div", { class: "card empty" }, "Setting up your demo club…"));
     const g = await fetch("/api/auth/guest", { method: "POST" });
-    if (g.ok) { location.hash = "#/plan"; location.reload(); return; }
+    if (g.ok) { if (!location.hash || location.hash === "#/") location.hash = "#/plan"; location.reload(); return; }
     throw new Error("Could not start a demo session.");
   }
   state.user = me.user;

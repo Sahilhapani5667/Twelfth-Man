@@ -965,5 +965,5 @@ def blank_local_profile(team: dict, engine: "Engine", league_base: float) -> dic
         "archetype": {**arche, "name": "New team", "description": "Add your results to learn your style."},
         "heat": None, "def_heat": None, "shots": None, "pass_network": None, "trend": [], "roster": team.get("roster") or [],
         "similar": [], "data_quality": {"matches": 0, "has_passing": False, "has_sot": False,
-                                        "note": "No results yet — treated as an average team. Add matches in My Team."},
+                                        "note": "No results yet — treated as an average team. Add matches in Results & Squad."},
     }

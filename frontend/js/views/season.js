@@ -109,12 +109,13 @@ export async function renderSeason() {
 
     const rows = fixtures.map((f) => {
       const played = f.goals_for != null;
+      const due = f.date <= today();  // results can be entered from match day onwards
       const gf = h("input", { type: "number", min: 0, max: 50, class: "score-in", value: f.goals_for ?? "", "aria-label": "Our goals" });
       const ga = h("input", { type: "number", min: 0, max: 50, class: "score-in", value: f.goals_against ?? "", "aria-label": "Their goals" });
       const saveScore = h("button", { class: "btn small ghost", onclick: async () => {
         try {
           await api(`/fixtures/${f.id}`, { method: "PUT", body: { ...f, goals_for: gf.value === "" ? null : +gf.value, goals_against: ga.value === "" ? null : +ga.value } });
-          toast("Result saved. Add the full match stats in My Team to improve your profile.");
+          toast("Result saved. Add the full match stats in Results & Squad to improve your profile.");
           draw();
         } catch (err) { toast(err.message); }
       } }, "Save");
@@ -122,7 +123,7 @@ export async function renderSeason() {
         h("td", {}, fmtDate(f.date)),
         h("td", {}, h("strong", {}, f.opponent)),
         h("td", {}, f.venue === "away" ? "Away" : f.venue === "neutral" ? "Neutral" : "Home"),
-        h("td", { class: "score-cell" }, [gf, "–", ga, saveScore]),
+        h("td", { class: "score-cell" }, due || played ? [gf, "–", ga, saveScore] : h("span", { class: "muted" }, f.time ? `Kick-off ${f.time}` : "Upcoming")),
         h("td", {}, h("div", { class: "row", style: { gap: "6px", flexWrap: "nowrap" } }, [
           !played && f.opponent_id ? h("button", { class: "btn small", onclick: () => planFor(f) }, "Plan") : null,
           h("button", { class: "btn small ghost", "aria-label": `Delete fixture vs ${f.opponent}`, onclick: async () => {
@@ -134,12 +135,15 @@ export async function renderSeason() {
     });
     const fixturesCard = h("section", { class: "coach-card" }, [
       h("h2", {}, "Fixtures"),
-      h("p", { class: "sub" }, "Add each game on your schedule. Opponents are created automatically."),
-      known, addForm,
       fixtures.length ? h("div", { class: "table-wrap" }, h("table", {}, [
         h("thead", {}, h("tr", {}, ["Date", "Opponent", "Venue", "Score (us – them)", ""].map((t) => h("th", {}, t)))),
         h("tbody", {}, rows),
-      ])) : h("p", { class: "muted" }, "No fixtures yet."),
+      ])) : h("p", { class: "muted" }, "No fixtures yet — add your first game below."),
+      known,
+      h("details", { class: "more", open: !fixtures.length }, [
+        h("summary", {}, [h("span", { class: "more-title" }, "Add a fixture"), h("span", { class: "more-hint" }, "opponents are created automatically")]),
+        h("div", { class: "more-body" }, [addForm]),
+      ]),
     ]);
 
     // league table
@@ -169,7 +173,8 @@ export async function renderSeason() {
     ]);
 
     // opponents
-    const oppCards = opponents.map((o) => {
+    const byTable = [...opponents].sort((a, b) => ((a.table && a.table.position) || 99) - ((b.table && b.table.position) || 99) || a.name.localeCompare(b.name));
+    const oppCards = byTable.map((o) => {
       const p = o.profile;
       const scoutBox = h("div", { hidden: true });
       const t = o.table;
