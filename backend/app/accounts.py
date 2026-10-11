@@ -213,28 +213,38 @@ class Accounts:
 
 def parse_league_table(text: str) -> list[dict]:
     """Parse a pasted league table: one team per line, e.g. '1 Riverside FC 10 4 3 3 17 14 3 15'
-    or CSV/TSV 'Pos,Team,P,W,D,L,GF,GA,GD,Pts'. Numbers after the name are read as P W D L GF GA."""
+    or CSV/TSV 'Pos,Team,P,W,D,L,GF,GA,GD,Pts'. The statistics are read from the end of the line,
+    so team names that contain numbers ('Westside Reserves 2') still work."""
     rows = []
     for line in (text or "").splitlines():
         tokens = [t for t in re.split(r"[,\t;|]+|\s+", line.strip()) if t]
         if not tokens or tokens[0].lower() in ("pos", "team", "#", "position", "club"):
             continue
         pos = None
-        if re.fullmatch(r"\d+\.?", tokens[0]):
+        if re.fullmatch(r"\d+\.?", tokens[0]) and len(tokens) > 7:
             pos = int(tokens[0].rstrip("."))
             tokens = tokens[1:]
-        name_parts, nums = [], []
-        for t in tokens:
-            if re.fullmatch(r"[+-]?\d+", t) and name_parts:
-                nums.append(int(t))
-            elif not nums:
-                name_parts.append(t)
-        if len(nums) < 6 or not name_parts:
+        trail = 0
+        while trail < len(tokens) and re.fullmatch(r"[+-]?\d+", tokens[-1 - trail]):
+            trail += 1
+        found = None
+        for k in (8, 7, 6):  # P W D L GF GA [GD] [Pts]
+            if trail < k or len(tokens) - k < 1:
+                continue
+            nums = [int(t) for t in tokens[-k:]]
+            p_, w, d, l, gf, ga = nums[:6]
+            if p_ <= 0 or w + d + l != p_:
+                continue
+            if k == 8 and (nums[6] != gf - ga or nums[7] != 3 * w + d):
+                continue
+            if k == 7 and nums[6] not in (gf - ga, 3 * w + d):
+                continue
+            found = (k, p_, w, d, l, gf, ga)
+            break
+        if not found:
             continue
-        p, w, d, l, gf, ga = nums[:6]
-        if p <= 0 or w + d + l != p:
-            continue
-        rows.append({"name": " ".join(name_parts), "position": pos, "played": p, "won": w, "drawn": d,
+        k, p_, w, d, l, gf, ga = found
+        rows.append({"name": " ".join(tokens[:-k]), "position": pos, "played": p_, "won": w, "drawn": d,
                      "lost": l, "gf": gf, "ga": ga})
     for i, r in enumerate(rows):
         if r["position"] is None:
