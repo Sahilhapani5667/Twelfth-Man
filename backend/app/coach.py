@@ -230,6 +230,16 @@ def _option(engine, us, opp, venue, usual, base, tactics, name, recommended=Fals
             "recommended": recommended, "confidence": confidence, "gain": round(gain, 3)}
 
 
+def _difficulty_with_plan(base_p, plan_p, changed: bool) -> dict:
+    d = difficulty(base_p[0], base_p[2])
+    gain = (3 * plan_p[0] + plan_p[1]) - (3 * base_p[0] + base_p[1])
+    if changed and gain > 0.03:
+        d = {**d, "text": d["text"] + " Our plan below improves your chances."}
+    elif changed and gain < -0.03:
+        d = {**d, "text": d["text"] + " The plan you picked is slightly riskier than your usual way."}
+    return d
+
+
 def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, chosen: dict | None = None,
               all_drills: list | None = None) -> dict:
     us, opp = engine.team(team_id), engine.team(opponent_id)
@@ -295,7 +305,7 @@ def game_plan(engine, team_id: str, opponent_id: str, venue: str, drills_for, ch
         "opponent": {"id": opp["id"], "name": opp["label"].split(" · ")[0],
                      "formation": opp["formation"] if formation_known else None,
                      "style": style, "style_name": opp["archetype"]["name"], "scouted": not unknown},
-        "difficulty": difficulty(p[0], p[2]),
+        "difficulty": _difficulty_with_plan(base["p"], p, plan_t != usual),
         "dangers": dangers,
         "plan": {"tactics": plan_t, "summary": describe_tactics(plan_t),
                  "changed": plan_t != usual, "change_title": _change_words(usual, plan_t) if plan_t != usual else None,

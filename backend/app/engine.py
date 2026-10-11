@@ -596,19 +596,20 @@ class Engine:
         ranked.sort(key=lambda x: -x[0])
 
         # Offer distinct options: each recommendation must be led by a different lever.
-        recs, used_primary = [], set()
+        recs, used_primary, used_sets = [], set(), set()
         for p10, gain, ch, new, e, g in ranked:
             if p10 <= 0:
                 continue
             payload = self._rec_payload(us, opp, cur, new, ch, cur_eval, e, float((g > 0).mean()))
             core = [d for d in payload["drivers"] if d["lever"] != "adaptation"]
             primary = max(core, key=lambda d: abs(d["xg_pct"]) + abs(d["xga_pct"]))["lever"] if core else None
-            if primary in used_primary:
+            if primary in used_primary or frozenset(ch) in used_sets:
                 continue
             payload["primary_lever"] = primary
             payload["impact"]["xpts_range"] = [round(float(np.percentile(g, 10)), 3), round(float(np.percentile(g, 90)), 3)]
             recs.append(payload)
             used_primary.add(primary)
+            used_sets.add(frozenset(ch))
             if len(recs) == top_k:
                 break
         return {"current": {"tactics": cur, "xpts": round(cur_eval["xpts"], 3),
